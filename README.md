@@ -1,2 +1,2 @@
-# Gerenciador-de-Senhas-FrontEnd
-Parte FrontEnd do projeto de Engenharia de Software
+# Gerenciador-de-Senhas
+Projeto de Engenharia de Software - PassWizard
