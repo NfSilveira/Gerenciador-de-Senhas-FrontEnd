@@ -1,0 +1,96 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Comfortaa&display=swap');
+
+body
+{
+    font-family: 'Comfortaa';
+    font-style: normal;
+
+}
+#telaInicial{
+    font-weight: 300;
+    font-size: 36px;
+    line-height: 40px;
+    align-items: center;
+    letter-spacing: -0.015em;
+    color: #000000;
+    margin-top: 130px;
+}
+
+#telaInicial p.bemVindo
+{
+   padding-top: 5em;
+   padding-left: 5em;
+   padding-right: 35em;
+   font-weight: bold;
+   text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+
+}
+
+#telaInicial p.acesso
+{
+   padding-top: 0.5em;
+   padding-left: 5em;
+   padding-right: 37em;
+   font-weight: bold;
+
+}
+
+#botao .cadastro
+{
+    position: absolute;
+    width: 406px;
+    height: 97px;
+    left: 1202px;
+    top: 123px;
+    background-color: #000000;
+    color: #F5F5F5;
+    font-weight: 400;
+    font-size: 48px;
+    font-family: 'Comfortaa';
+    font-style: normal;
+    border-radius: 15px;
+    
+}
+
+#botao .cadastro:hover 
+{
+    opacity: 0.6;
+    transition: 0.3s;
+    background-color: #F5F5F5;
+    color: #000000;
+}
+
+#botao .login{
+    background-color: #000000;
+    color: #F5F5F5;
+    width: 406px;
+    height: 97px;
+    margin-top: -365px;
+    border-radius: 15px;
+    margin-left: 24.9em;
+    font-weight: 400;
+    font-size: 48px;
+    position: absolute;
+    font-family: 'Comfortaa';
+    font-style: normal;
+}
+
+#botao .login:hover 
+{
+    opacity: 0.6;
+    transition: 0.5s;
+    background-color: #F5F5F5;
+    color: #000000;
+}
+
+#logo img
+{
+    position: absolute;
+    left: 60.56%;
+    right: 8.36%;
+    margin-top: 56.68%;
+    bottom: 17.33%;
+    width: 360px;
+    height: 190px;
+}

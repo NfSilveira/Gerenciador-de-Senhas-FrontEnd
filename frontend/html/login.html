@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="pt_br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/telaInicial.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/login.css') }}">
+    <title>Login</title>
+</head>
+<body>
+    <section>
+        <button id="botaoVoltar"> 
+                voltar
+        </button>
+    </section>
+
+    <section class="login">
+        <p>Login</p>
+    </section>
+
+    <section id="formularioCadastro">
+        <form>
+            <div class="form-group">
+                <label for="Email"></label>
+                <input type="email" class="form-control" placeholder="Email">
+            </div><br>
+
+            <div class="form-group">
+                <label for="Senha"></label>
+                <input type="password" class="form-control" placeholder="Senha">
+            </div>
+
+
+            <button type="submit" class="botaoLogin">login</button>
+        </form>
+
+</body>
+</html>

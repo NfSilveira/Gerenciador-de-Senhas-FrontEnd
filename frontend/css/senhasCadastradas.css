@@ -1,0 +1,125 @@
+#botaosair{
+    background-color: black;
+    color: #F5F5F5;
+    font-weight: 300;
+    font-size: 26px;
+    position: absolute;
+    height: 58px;
+    width: 170px;
+    left: 1747px;
+    right: 38px;
+    top: 56px;
+    border-radius: 15px;
+    border: 2px solid black;
+    text-transform: uppercase;
+}
+
+#botaosair:hover
+{
+    opacity: 0.5s;
+    transition: 0.3s;
+    background-color: #F5F5F5;
+    color: black;
+    border: 2px solid black;
+}
+
+.senhasCadastradas p
+{
+    font-weight: 600;
+    font-size: 26px;
+    padding-top: 2em;
+    font-weight: 900;
+    font-size: 36px;
+    margin-left: 30px;
+    padding-right: 55em;
+}
+
+.form-group
+{
+    margin-left: 300px;
+}
+
+#formularioPesquisar 
+{
+    position: relative;
+    height: 69px;
+    padding-top: 6em;
+    font-weight: 600;
+    margin-left: 90px;
+    font-weight: bold;
+}
+
+.form-control{
+
+    position: relative;
+    height: 45px;
+    width: 20em;
+    font-weight: 300;
+    font-size: 35px;
+    font-style: italic;
+    color: black;
+    margin-left: 15px;
+    top:-10px
+}
+
+button.novaSenha
+{
+    background-color: black;
+    color: #F5F5F5;
+    text-transform: uppercase;
+    border-radius: 15px;
+    border: 2px solid black;
+    font-weight: 600;
+    font-size: 15px;
+    height: 65px;
+    width: 10em;
+    margin-top:-33em;
+    margin-left: 17em;
+    margin-right: 5em;
+    position: unset;
+}
+
+button.novaSenha:hover
+{
+    background-color: #F5F5F5;
+    color: black;
+    
+}
+
+.fa-eye-slash:before
+{
+    margin-left: -1em;
+    padding-top: 2em;
+}
+
+#salvarSites
+{
+    position: relative;
+    height: 69px;
+   /* padding-top: 10em;*/
+    font-weight: 600;
+    margin-left: 25em;
+    font-weight: bold;
+}
+
+#titulos
+{
+    padding-top: 10em;
+}
+
+p.sitesTitulo
+{
+    margin-left: 26em;
+    position: absolute;
+    font-weight: bold;
+    font-size: 16px;
+}
+
+p.senhasTitulo
+{
+    margin-left: 71.7em;
+    position: relative;
+    font-weight: bold;
+    font-size: 16px;
+}
+

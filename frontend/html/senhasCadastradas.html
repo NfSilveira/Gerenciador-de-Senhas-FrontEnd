@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="pt_br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/telaInicial.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/senhasCadastradas.css') }}">
+    <link rel="stylesheet" href="https://fontawesome.com/icons/eye-slash?f=classic&s=light">
+    <link rel="stylesheet" href="/fontawesome/fontawesome/css/all.min.css">
+    <title>Senhas Cadastradas</title>
+</head>
+
+<body>
+    <section>
+        <button id="botaosair"> 
+            Sair
+        </button>
+    </section>
+
+    <section class="senhasCadastradas">
+        <p>Senhas Cadastradas</p>
+    </section>
+
+    <section id="formularioPesquisar">
+        <form>
+            <div class="form-group">
+                <i class="fa-solid fa-magnifying-glass fa-3x"></i>
+                <input type="pesquisar" class="form-control" placeholder="Pesquisar local"> <button class="novaSenha"> 
+                    nova senha 
+                </button>  <i class="fa-solid fa-eye-slash fa-3x"></i>
+            </div>
+            </form>
+            </section>
+
+            <section id="titulos">
+                <p class="sitesTitulo"> Sites/Aplicativos</p>
+                <p class="senhasTitulo"> Senhas </p>
+            </section>
+
+        <section id="salvarSites">
+            <form>
+                <div class="form-row">
+                  <div class="col">
+                    <label for="sites"></label>
+                    <input type="url" class="form-control" placeholder="Gmail">
+                    <label for="senhas"></label>
+                    <input type="password" class="form-control" placeholder="*****************">
+                    <img src="{{ url_for('static', filename='Imagens/lixeira.png') }}" alt=""> <img src="{{ url_for('static', filename='Imagens/lapis.png') }}" alt="">
+                  </div><br>
+
+                  <div class="form-row">
+                    <div class="col">
+                      <label for="sites"></label>
+                      <input type="url" class="form-control" placeholder="https://www.twitch.tv/">
+                      <label for="senhas"></label>
+                      <input type="password" class="form-control" placeholder="************">
+                      <img src="{{ url_for('static', filename='Imagens/lixeira.png') }}" alt=""> <img src="{{ url_for('static', filename='Imagens/lapis.png') }}" alt="">
+                    </div><br>
+
+                    <div class="form-row">
+                        <div class="col">
+                          <label for="sites"></label>
+                          <input type="url" class="form-control" placeholder="Riot Games">
+                          <label for="senhas"></label>
+                          <input type="password" class="form-control" placeholder="*****************">
+                          <img src="{{ url_for('static', filename='Imagens/lixeira.png') }}" alt=""> <img src="{{ url_for('static', filename='Imagens/lapis.png') }}" alt="">
+                        </div>
+              </form>
+    </section>
+
+</body>
+</html>

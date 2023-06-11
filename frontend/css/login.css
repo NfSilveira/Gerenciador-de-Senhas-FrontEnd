@@ -1,0 +1,77 @@
+#botaoVoltar{
+    background-color: black;
+    color: #F5F5F5;
+    font-weight: 300;
+    font-size: 26px;
+    position: absolute;
+    height: 58px;
+    width: 170px;
+    left: 1747px;
+    right: 38px;
+    top: 56px;
+    border-radius: 15px;
+    border: 2px solid black;
+    text-transform: uppercase;
+}
+
+#botaoVoltar:hover
+{
+    opacity: 0.5s;
+    transition: 0.3s;
+    background-color: #F5F5F5;
+    color: black;
+    border: 2px solid black;
+}
+
+.login p
+{
+    font-weight: 600;
+    font-size: 26px;
+    padding-top: 2em;
+    font-weight: 900;
+    font-size: 36px;
+    margin-left: 30px;
+}
+
+#formularioCadastro
+{
+    position: relative;
+    width: 1360px;
+    height: 69px;
+    line-height:1.9em;
+    padding-top: 6em;
+    font-weight: 600;
+    font-size: 26px;
+    margin-left: 30px;
+}
+
+.form-control{
+
+    position: relative;
+    width: 1379px;
+    height: 45px;
+    font-weight: 300;
+    font-size: 20px;
+}
+
+.botaoLogin{
+    text-transform: uppercase;
+    border-radius: 15px;
+    border: 2px solid black;
+    text-transform: uppercase;
+    height: 6em;
+    width: 105em;
+    margin-top: 150px;
+    background-color: black;
+    color: #F5F5F5;
+    
+}
+
+.botaoLogin:hover
+{
+    opacity: 0.5s;
+    transition: 0.3s;
+    background-color: #F5F5F5;
+    color: black;
+    border: 2px solid black;
+}
