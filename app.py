@@ -30,7 +30,7 @@ def register():
             hashed_password = backend_functions.hash_password(request.form.get('Password'))
 
             # Save the username and hashed password in the database
-            backend_functions.save_to_database(email, hashed_password)
+            backend_functions.save_to_database(full_name, formatted_phone_number, email, hashed_password)
 
         # Redirect to the home page
         return redirect('/')

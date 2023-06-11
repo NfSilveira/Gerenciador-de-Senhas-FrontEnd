@@ -32,7 +32,7 @@ def connect():
         print(str(e))
 
 
-def save_to_database(username, password):
+def save_to_database(full_name, phone_number, email, password):
 
     try:
 
@@ -40,7 +40,7 @@ def save_to_database(username, password):
 
         cur = conn.cursor()
 
-        cur.execute(f"INSERT INTO login_credentials (_user_name, _user_password) VALUES ('{username}', '{password}');")
+        cur.execute(f"INSERT INTO login_credentials (_full_name, _phone_number, _user_email, _user_password) VALUES ('{full_name}', '{phone_number}', '{email}', '{password}');")
 
         conn.commit()
         cur.close()
