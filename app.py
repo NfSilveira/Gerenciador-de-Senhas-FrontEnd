@@ -1,11 +1,11 @@
 from flask import Flask, render_template, request, redirect
 import backend.backend_functions as backend_functions
 import os
+import re
 
 app = Flask(__name__, template_folder='frontend/html', static_folder='static')
 secret_key = os.urandom(12).hex()
 app.secret_key = secret_key
-app.debug = True
 
 @app.route('/')
 def index():
@@ -18,14 +18,19 @@ def register():
 
     if request.method == 'POST':
         # Get the user's input from the registration form
-        username = request.form.get('email', '')
-        password = request.form.get('password', '')
+        full_name = request.form.get('FullName')
+        phone_number = request.form.get('PhoneNumber')
+        email = request.form.get('Email')
 
-        # Hash the password
-        hashed_password = backend_functions.hash_password(password)
+        formatted_phone_number = re.sub(r'[\(\)\-\s]', '', phone_number)
 
-        # Save the username and hashed password in the database
-        backend_functions.save_to_database(username, hashed_password)
+        if request.form.get('Password') is not None and email is not None:
+
+            # Hash the password
+            hashed_password = backend_functions.hash_password(request.form.get('Password'))
+
+            # Save the username and hashed password in the database
+            backend_functions.save_to_database(email, hashed_password)
 
         # Redirect to the home page
         return redirect('/')
