@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect
+from flask import Flask, render_template, request, session, redirect
 import backend.backend_functions as backend_functions
 import os
 import re
@@ -40,10 +40,35 @@ def register():
         return render_template('cadastro.html')
 
 
-@app.route('/login')
+@app.route('/login', methods=['GET', 'POST'])
 def login():
 
-    return render_template('login.html')
+    if request.method == 'POST':
+
+        email = request.form.get('Email')
+
+        if request.form.get('Password') != '' and email != '':
+
+            match, username = backend_functions.check_login_credentials(email, request.form.get('Password'))
+
+            if match:
+
+                session['username'] = username
+                return redirect('/dashboard')
+            
+            else:
+                
+                return redirect('/')
+
+    elif request.method == 'GET':
+
+        return render_template('login.html')
+    
+
+@app.route('/dashboard')
+def dashboard():
+
+    return render_template('senhasCadastradas.html')
 
 
 if __name__ == '__main__':
