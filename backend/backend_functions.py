@@ -1,5 +1,6 @@
 import bcrypt
 import psycopg2
+import re
 
 
 def hash_password(password):

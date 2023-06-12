@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, session, redirect
+from flask import Flask, jsonify, render_template, request, session, redirect
 import backend.backend_functions as backend_functions
 import os
 import re
@@ -17,6 +17,7 @@ def index():
 def register():
 
     if request.method == 'POST':
+            
         # Get the user's input from the registration form
         full_name = request.form.get('FullName')
         phone_number = request.form.get('PhoneNumber')
@@ -33,7 +34,7 @@ def register():
             backend_functions.save_to_database(full_name, formatted_phone_number, email, hashed_password)
 
         # Redirect to the home page
-        return redirect('/')
+        return redirect('/'), jsonify({'message': 'Registration successful', 'type': 'success'})
     
     elif request.method == 'GET':
 

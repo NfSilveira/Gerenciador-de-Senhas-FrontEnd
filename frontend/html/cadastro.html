@@ -8,6 +8,12 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/cadastro.css') }}">
     <script src="{{ url_for('static', filename='js/mainPageRedirect.js') }}"></script>
     <title>Cadastro</title>
+    <style>
+        .custom-swal .swal-button {
+          background-color: #000; /* Set your desired button color */
+          color: #fff; /* Set the text color for the button */
+        }
+    </style>
 </head>
 <body>
     <section>
@@ -32,10 +38,39 @@
             </div><br>
             <div class="form-group">
                 <label for="password">Senha</label>
-                <input type="password" class="form-control" placeholder="Escolha uma senha forte" name="Password">
+                <input type="password" class="form-control" placeholder="Digite uma senha forte(8 ou mais caracteres, pelo menos uma letra maiúscula, uma minúscula, um número e um caractere especial)" name="Password" id="passwordInput">
             </div>
-            <button type="submit" class="botaoCadastrar">cadastrar</button>
+            <button type="button" class="botaoCadastrar" onclick="validateForm()">cadastrar</button>
         </form>
     </section>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+
+        function validateForm() {
+            console.log("Validating form...");
+            var passwordInput = document.getElementById("passwordInput");
+            var password = passwordInput.value;
+
+            var pattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/;
+            var isStrong = pattern.test(password);
+
+            if (!isStrong) {
+
+                Swal.fire({
+                        title: 'A senha digitada não é forte o suficiente!',
+                        text: 'Atente-se às restrições: A senha deve ter 8 ou mais caracteres, pelo menos uma letra maiúscula, uma minúscula, um número e um caractere especial!',
+                        icon: 'warning',
+                        customClass: {
+                        container: 'custom-swal'
+                        },
+                        buttonsStyling: true,
+                        confirmButtonClass: 'swal-button'
+                });
+            } else {
+                document.querySelector('form').submit();
+            }
+        }
+    </script>
 </body>
 </html>
