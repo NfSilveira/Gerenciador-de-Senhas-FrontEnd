@@ -24,7 +24,7 @@ def register():
 
         formatted_phone_number = re.sub(r'[\(\)\-\s]', '', phone_number)
 
-        if request.form.get('Password') is not None and email is not None:
+        if request.form.get('Password') != '' and email != '':
 
             # Hash the password
             hashed_password = backend_functions.hash_password(request.form.get('Password'))
