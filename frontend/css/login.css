@@ -1,3 +1,11 @@
+@import url('https://fonts.googleapis.com/css2?family=Comfortaa&display=swap');
+
+body
+{
+    font-family: 'Comfortaa';
+    font-style: normal;
+}
+
 #botaoVoltar{
     background-color: black;
     color: #F5F5F5;
@@ -39,13 +47,14 @@
     width: 1360px;
     height: 69px;
     line-height:1.9em;
-    padding-top: 6em;
+    padding-top: 3em;
     font-weight: 600;
     font-size: 26px;
     margin-left: 30px;
 }
 
-.form-control{
+.form-control
+{
 
     position: relative;
     width: 1379px;
@@ -54,16 +63,19 @@
     font-size: 20px;
 }
 
-.botaoLogin{
+.botaoLogin
+{
     text-transform: uppercase;
     border-radius: 15px;
     border: 2px solid black;
     text-transform: uppercase;
-    height: 6em;
-    width: 105em;
+    height: 5em;
+    width: 70em;
     margin-top: 150px;
     background-color: black;
     color: #F5F5F5;
+    font-weight: 900;
+    font-size: 20px;
     
 }
 
@@ -74,4 +86,42 @@
     background-color: #F5F5F5;
     color: black;
     border: 2px solid black;
+}
+#botaos > span:nth-child(2) > button
+{
+    text-transform: uppercase;
+    border: 2px solid black;
+    text-transform: uppercase;
+    height: 3em;
+    width:19em;
+    margin-top: 150px;
+    background-color: black;
+    color: #F5F5F5;
+    font-weight: 900;
+    font-size: 20px;
+    border-radius: 7px;
+    margin-left: 15em;
+}
+
+#botaos > span:nth-child(3) > button
+{
+    text-transform: uppercase;
+    border: 2px solid black;
+    text-transform: uppercase;
+    height: 3em;
+    width:19em;
+    margin-top: 150px;
+    background-color: black;
+    color: #F5F5F5;
+    font-weight: 900;
+    font-size: 20px;
+    border-radius: 7px;
+    margin-left: 3em;
+}
+
+#botaos > span:nth-child(2) > button:hover,
+#botaos > span:nth-child(3) > button:hover
+{
+    background-color: #F5F5F5;
+    color: #000000;
 }

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt_br">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -7,7 +7,11 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/telaInicial.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/senhasCadastradas.css') }}">
     <link rel="stylesheet" href="https://fontawesome.com/icons/eye-slash?f=classic&s=light">
-    <link rel="stylesheet" href="/fontawesome/fontawesome/css/all.min.css">
+    <link rel="stylesheet" href="/Gerenciador-de-Senhas-PassWizard/frontend/fontawesome-free-6.4.0-web/css/all.min.css">
+    <link rel="stylesheet" href="/Gerenciador-de-Senhas-PassWizard/frontend/">
+    <link rel="stylesheet" href="/Gerenciador-de-Senhas-PassWizard/frontend/css/senhasCadastradas.css">
+    <link rel="stylesheet" href="/Gerenciador-de-Senhas-PassWizard/frontend/html/telaInicial.html">
+    <link rel="stylesheet" href="/Gerenciador-de-Senhas-PassWizard/frontend/icons8-lápis-100.png">
     <script src="{{ url_for('static', filename='js/mainPageRedirect.js') }}"></script>
     <title>Senhas Cadastradas</title>
 </head>
@@ -25,12 +29,14 @@
 
     <section id="formularioPesquisar">
         <form>
-            <div class="form-group">
-                <i class="fa-solid fa-magnifying-glass fa-3x"></i>
-                <input type="pesquisar" class="form-control" placeholder="Pesquisar local"> <button class="novaSenha"> 
-                    nova senha 
-                </button>  <i class="fa-solid fa-eye-slash fa-3x"></i>
-            </div>
+            <span>
+                <div class="form-group">
+                    <i class="fa-solid fa-magnifying-glass fa-3x"></i>
+                    <input type="pesquisar" class="form-control" placeholder="Pesquisar local">
+                    <button class="novaSenha">novaSenha</button>
+                    <i class="fa-sharp fa-solid fa-eye-slash fa-3x"></i>
+                </div>
+            </span>
             </form>
             </section>
 
@@ -41,24 +47,29 @@
 
         <section id="salvarSites">
             <form>
-                <div class="form-row">
-                  <div class="col">
-                    <label for="sites"></label>
-                    <input type="url" class="form-control" placeholder="Gmail">
-                    <label for="senhas"></label>
-                    <input type="password" class="form-control" placeholder="*****************">
-                    <img src="{{ url_for('static', filename='Imagens/lixeira.png') }}" alt=""> <img src="{{ url_for('static', filename='Imagens/lapis.png') }}" alt="">
-                  </div><br>
-
+                <span>
+                    <div class="form-row">
+                    <div class="col">
+                        <label for="sites"></label>
+                        <input type="url" class="form-control" placeholder="Gmail">
+                        <label for="senhas"></label>
+                        <input type="password" class="form-control" placeholder="*****************">
+                        <img width="50" height="50" src="https://img.icons8.com/ios/50/000000/delete--v1.png" alt="delete--v1"/>
+                        <img width="50" height="50" src="https://img.icons8.com/ios-filled/50/pencil--v1.png" alt="pencil--v1"/>
+                    </div><br>
+                </span>
+                <span>
                   <div class="form-row">
                     <div class="col">
                       <label for="sites"></label>
                       <input type="url" class="form-control" placeholder="https://www.twitch.tv/">
                       <label for="senhas"></label>
                       <input type="password" class="form-control" placeholder="************">
-                      <img src="{{ url_for('static', filename='Imagens/lixeira.png') }}" alt=""> <img src="{{ url_for('static', filename='Imagens/lapis.png') }}" alt="">
+                      <img width="50" height="50" src="https://img.icons8.com/ios/50/000000/delete--v1.png" alt="delete--v1"/>
+                      <img width="50" height="50" src="https://img.icons8.com/ios-filled/50/pencil--v1.png" alt="pencil--v1"/>
                     </div><br>
-
+                </span>
+                <span>
                     <div class="form-row">
                         <div class="col">
                           <label for="sites"></label>
@@ -66,7 +77,9 @@
                           <label for="senhas"></label>
                           <input type="password" class="form-control" placeholder="*****************">
                           <img src="{{ url_for('static', filename='Imagens/lixeira.png') }}" alt=""> <img src="{{ url_for('static', filename='Imagens/lapis.png') }}" alt="">
-                        </div>
+                          <img width="50" height="50" src="https://img.icons8.com/ios/50/000000/delete--v1.png" alt="delete--v1"/>
+                          <img width="50" height="50" src="https://img.icons8.com/ios-filled/50/pencil--v1.png" alt="pencil--v1"/>
+                    </span>
               </form>
     </section>
 

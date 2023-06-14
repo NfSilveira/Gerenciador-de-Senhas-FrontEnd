@@ -1,3 +1,11 @@
+@import url('https://fonts.googleapis.com/css2?family=Comfortaa&display=swap');
+
+body
+{
+    font-family: 'Comfortaa';
+    font-style: normal;
+}
+
 #botaosair{
     background-color: black;
     color: #F5F5F5;
@@ -27,8 +35,6 @@
 {
     font-weight: 600;
     font-size: 26px;
-    padding-top: 2em;
-    font-weight: 900;
     font-size: 36px;
     margin-left: 30px;
     padding-right: 55em;
@@ -43,7 +49,6 @@
 {
     position: relative;
     height: 69px;
-    padding-top: 6em;
     font-weight: 600;
     margin-left: 90px;
     font-weight: bold;
@@ -71,10 +76,9 @@ button.novaSenha
     border: 2px solid black;
     font-weight: 600;
     font-size: 15px;
-    height: 65px;
-    width: 10em;
-    margin-top:-33em;
-    margin-left: 17em;
+    height: 5em;
+    width: 8em;
+    margin-left: 2em;
     margin-right: 5em;
     position: unset;
 }
@@ -98,28 +102,38 @@ button.novaSenha:hover
     height: 69px;
    /* padding-top: 10em;*/
     font-weight: 600;
-    margin-left: 25em;
+    margin-left: 10em;
     font-weight: bold;
 }
 
 #titulos
 {
     padding-top: 10em;
+    font-family: 'Comfortaa';
+    font-style: normal;
 }
 
 p.sitesTitulo
 {
-    margin-left: 26em;
+    margin-left: 18em;
     position: absolute;
     font-weight: bold;
-    font-size: 16px;
+    font-size: 26px;
 }
 
 p.senhasTitulo
 {
-    margin-left: 71.7em;
+    margin-left: 45em;
     position: relative;
     font-weight: bold;
     font-size: 16px;
+    font-size: 26px;
 }
+
+.fa-thin-fa-bin-recycle:before
+{
+    margin-left: 100em;
+}
+
+
 

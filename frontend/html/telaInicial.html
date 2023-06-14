@@ -1,10 +1,12 @@
 <!DOCTYPE html>
-<html lang="pt_br">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/telaInicial.css') }}">
+    <link rel="stylesheet" href="/Gerenciador-de-Senhas-PassWizard/frontend/css/telaInicial.css">
+    <link rel="stylesheet" href="/Gerenciador-de-Senhas-PassWizard/frontend/Imagens">
     <title>Tela Inicial</title>
 </head>
 <body>
@@ -13,11 +15,14 @@
         <p class="acesso">Tenha acesso a suas senhas de forma rápida, fácil e prática!</p>
     </section>
     <section id="botao">
-        <a href="/register"><button class="cadastro">Cadastre-se</button></a>
-        <a href="/login"><button class="login">Login</button></a>
+        <!--<a href="/register"><button class="cadastro">Cadastre-se</button></a>
+        <a href="/login"><button class="login">Login</button></a>-->
+        <a href="/Gerenciador-de-Senhas-PassWizard/frontend/html/cadastro.html"><button class="cadastro">Cadastre-se</button></a>
+        <a href="/Gerenciador-de-Senhas-PassWizard/frontend/html/login.html"><button class="login">Login</button></a>
     </section>
     <section id="logo">
-        <img src="{{ url_for('static', filename='Imagens/logo.png') }}" alt="Logo do Gerenciador de Senhas">
+       <!-- <img src="{{ url_for('static', filename='Imagens/logo.png') }}" alt="Logo do Gerenciador de Senhas">-->
+       <img src="/Gerenciador-de-Senhas-PassWizard/frontend/Imagens/logo.png" alt="">
     </section>
 </body>
 </html>

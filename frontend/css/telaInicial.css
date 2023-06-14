@@ -33,6 +33,7 @@ body
    padding-left: 5em;
    padding-right: 37em;
    font-weight: bold;
+   text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 
 }
 
@@ -41,7 +42,7 @@ body
     position: absolute;
     width: 406px;
     height: 97px;
-    left: 1202px;
+    left: 30em;
     top: 123px;
     background-color: #000000;
     color: #F5F5F5;
@@ -68,7 +69,7 @@ body
     height: 97px;
     margin-top: -365px;
     border-radius: 15px;
-    margin-left: 24.9em;
+    left: 30em;
     font-weight: 400;
     font-size: 48px;
     position: absolute;
@@ -87,10 +88,9 @@ body
 #logo img
 {
     position: absolute;
-    left: 60.56%;
-    right: 8.36%;
+    left: 90.5em;
     margin-top: 56.68%;
     bottom: 17.33%;
-    width: 360px;
+    width: 380px;
     height: 190px;
 }
