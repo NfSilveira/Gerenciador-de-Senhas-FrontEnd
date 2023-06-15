@@ -16,7 +16,7 @@ def connect():
     try:
 
         connection = psycopg2.connect(
-            host = "127.0.0.1",
+            host = "20.226.60.21",
             database = "passwizard",
             user = "passmaster",
             password = "@2023_ComputerMagic",
