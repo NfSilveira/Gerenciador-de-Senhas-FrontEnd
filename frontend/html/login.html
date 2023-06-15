@@ -7,8 +7,8 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/telaInicial.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/login.css') }}">
     <script src="{{ url_for('static', filename='js/mainPageRedirect.js') }}"></script>
-    <link rel="stylesheet" href="/Gerenciador-de-Senhas-PassWizard/frontend/css/login.css">
-    <link rel="stylesheet" href="/Gerenciador-de-Senhas-PassWizard/frontend/css/telaInicial.css">
+    <!-- <link rel="stylesheet" href="/Gerenciador-de-Senhas-PassWizard/frontend/css/login.css">
+    <link rel="stylesheet" href="/Gerenciador-de-Senhas-PassWizard/frontend/css/telaInicial.css"> -->
     <title>Login</title>
 </head>
 <body>
@@ -23,8 +23,8 @@
     </section>
 
     <section id="formularioCadastro">
-        <!--<form action="/login" method="POST">-->
-            <form action="/Gerenciador-de-Senhas-PassWizard/frontend/html/login.html" method="POST"></form>
+        <form action="/login" method="POST">
+            <!-- <form action="/Gerenciador-de-Senhas-PassWizard/frontend/html/login.html" method="POST"></form> -->
             <div class="form-group">
                 <label for="Email"></label>
                 <input type="email" class="form-control" placeholder="Email" name="Email">

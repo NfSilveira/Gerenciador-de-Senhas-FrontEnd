@@ -1,3 +1,36 @@
+@import url('https://fonts.googleapis.com/css2?family=Comfortaa&display=swap');
+
+body
+{
+    font-family: 'Comfortaa';
+    font-style: normal;
+}
+#botaoVoltar{
+    background-color: black;
+    color: #F5F5F5;
+    font-weight: 300;
+    font-size: 26px;
+    position: absolute;
+    height: 58px;
+    width: 170px;
+    left: 1747px;
+    right: 38px;
+    top: 56px;
+    border-radius: 15px;
+    border: 2px solid black;
+    text-transform: uppercase;
+}
+
+#botaoVoltar:hover
+{
+    opacity: 0.5s;
+    transition: 0.3s;
+    background-color: #F5F5F5;
+    color: black;
+    border: 2px solid black;
+}
+
+
 #botaosair{
     background-color: black;
     color: #F5F5F5;
@@ -30,8 +63,8 @@
     padding-top: 2em;
     font-weight: 900;
     font-size: 36px;
-    margin-left: 30px;
-    padding-right: 35em;
+    margin-left: 20em;
+    padding-right: 5em;
 }
 
 .form-control
@@ -44,6 +77,8 @@
     font-family: 'Comfortaa';
     font-style: normal;
     width: 35em;
+    height: 2em;
+    margin-left: 10em;
 }
 
 .formularioAdicionarNovasSenhas
@@ -63,8 +98,8 @@
     margin-top: 50px;
     background-color: black;
     color: #F5F5F5;
-    margin-left: 25em;
-    font-weight: 300;
+    margin-left: 23em;
+    font-weight: 900;
     font-size:x-large;
     
     
