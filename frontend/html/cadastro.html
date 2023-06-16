@@ -2,75 +2,106 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/telaInicial.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/cadastro.css') }}">
-    <script src="{{ url_for('static', filename='js/mainPageRedirect.js') }}"></script>
-    <title>Cadastro</title>
-    <style>
-        .custom-swal .swal-button {
-          background-color: #000; /* Set your desired button color */
-          color: #fff; /* Set the text color for the button */
-        }
-    </style>
+    <link rel="stylesheet" href="/cadastro.css">
+     <!--<link rel="stylesheet" href="{{ url_for('static', filename='css/telaInicial.css') }}">-->
+     <link rel="stylesheet" href="/Gerenciador-de-Senhas-PassWizard/frontend/css/cadastro.css"> 
+    <title>Página de Cadastro</title>
 </head>
 <body>
-    <section>
-        <button id="botaoVoltar" onclick="goToMainPage()"> 
-                voltar
-        </button>
-    </section>
-
-    <section id="formularioCadastro">
-        <form action="/register" method="POST">
-            <div class="form-group">
-                <label for="fullName">Nome Completo</label>
-                <input type="name" class="form-control" placeholder="Nome Completo" name="FullName">
-            </div><br>
-            <div class="form-group">
-                <label for="phoneNumber">Telefone</label>
-                <input id="phoneNumber" type="tel" class="form-control" placeholder="(xx) xxxxx-xxxx" name="PhoneNumber">
-            </div><br>
-            <div class="form-group">
-                <label for="email">E-mail</label>
-                <input type="email" class="form-control" placeholder="Email Principal" name="Email">
-            </div><br>
-            <div class="form-group">
-                <label for="password">Senha</label>
-                <input type="password" class="form-control" placeholder="Digite uma senha forte(8 ou mais caracteres, pelo menos uma letra maiúscula, uma minúscula, um número e um caractere especial)" name="Password" id="passwordInput">
+<!--
+<div class="flex-container">
+  <form action="/action_page.php">
+    <div class="flex-item-right">
+        <a href="/Gerenciador-de-Senhas-PassWizard/frontend/html/cadastro.html"><button class="voltar">voltar</button></a> 
+      </div>
+    </div>
+    <div class="flex-item-left">
+        <div class="row">
+        <div class="col-5">
+            <label for="fname">Nome Completo</label>
+        </div>
+        <div class="col-5">
+            <input type="text" id="fname" name="nmCompleto" placeholder="Nome Completo">
+        </div>
+        </div>
+        <div class="row">
+        <div class="col-5">
+            <label for="lname">Telefone</label>
+        </div>
+        <div class="col-5">
+            <input type="text" id="lname" name="tel" placeholder="(xx - xxxxx-xxxx)">
+        </div>
+        </div>
+        <div class="row">
+        <div class="col-5">
+            <label for="lname">Email</label>
+        </div>
+        <div class="col-5">
+                <input type="text" id="lname" name="email" placeholder="Email  Principal">
             </div>
-            <button type="button" class="botaoCadastrar" onclick="validateForm()">cadastrar</button>
+        </div>
+        <div class="row">
+        <div class="col-5">
+            <label for="subject">Senha</label>
+        </div>
+        <div class="col-5">
+            <input type="text" id="lname" name="senhaForte" placeholder="Escolha uma senha forte ">
+        </div>
+        </div>
+        <div class="row">
+        <input type="submit" value="cadastrar">
+        </div>
+    </div>
+  </form>
+  -->
+
+  <div class="flex-container">
+    <div class="flex-item-right">
+        <!-- <a href="/register"><button class="cadastro">Cadastre-se</button></a>
+          <a href="/login"><button class="login">Login</button></a>-->
+           <a href="/Gerenciador-de-Senhas-PassWizard/frontend/html/cadastro.html"><button class="cadastro">voltar</button></a> 
+    </div>
+
+
+    <div class="flex-item-left">   
+        <form action="/action_page.php">
+        <div class="row">
+            <div class="col-5">
+            <label for="fname">Nome Completo</label>
+            </div>
+            <div class="col-5">
+            <input type="text" id="fname" name="firstname" placeholder="Nome Completo">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-5">
+            <label for="lname">Telefone</label>
+            </div>
+            <div class="col-5">
+            <input type="text" id="lname" name="lastname" placeholder="(xx - xxxxx-xxxx)">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-5">
+            <label for="lname">Email</label>
+            </div>
+            <div class="col-5">
+            <input type="text" id="lname" name="lastname" placeholder="Email  Principal">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-5">
+            <label for="lname">Senha</label>
+            </div>
+            <div class="col-5">
+            <input type="text" id="lname" name="lastname" placeholder="Escolha uma senha forte ">
+            </div>
+        </div>
+        <div class="row">
+            <input type="submit" value="Cadastrar">
+        </div>
         </form>
-    </section>
-
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script>
-
-        function validateForm() {
-            console.log("Validating form...");
-            var passwordInput = document.getElementById("passwordInput");
-            var password = passwordInput.value;
-
-            var pattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/;
-            var isStrong = pattern.test(password);
-
-            if (!isStrong) {
-
-                Swal.fire({
-                        title: 'A senha digitada não é forte o suficiente!',
-                        text: 'Atente-se às restrições: A senha deve ter 8 ou mais caracteres, pelo menos uma letra maiúscula, uma minúscula, um número e um caractere especial!',
-                        icon: 'warning',
-                        customClass: {
-                        container: 'custom-swal'
-                        },
-                        buttonsStyling: true,
-                        confirmButtonClass: 'swal-button'
-                });
-            } else {
-                document.querySelector('form').submit();
-            }
-        }
-    </script>
+  </div>
 </body>
 </html>
