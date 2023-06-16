@@ -4,46 +4,51 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-     <!--<link rel="stylesheet" href="{{ url_for('static', filename='css/telaInicial.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/telaInicial.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/login.css') }}">
-    <script src="{{ url_for('static', filename='js/mainPageRedirect.js') }}"></script>-->
-    <link rel="stylesheet" href="/Gerenciador-de-Senhas-PassWizard/frontend/html/login.css">
-    <link rel="stylesheet" href="/Gerenciador-de-Senhas-PassWizard/frontend/css/cadastro.css"> 
+    <script src="{{ url_for('static', filename='js/mainPageRedirect.js') }}"></script>
+    <!--<link rel="stylesheet" href="/Gerenciador-de-Senhas-PassWizard/frontend/css/login.css">-->
     <title>Página de Login</title>
 </head>
 <body>
     <div class="flex-container">
-  <form action="/action_page.php">
-    <div class="flex-item-right">
-        <a href="/Gerenciador-de-Senhas-PassWizard/frontend/html/cadastro.html"><button class="voltar">voltar</button></a> 
-      </div>
-    </div>
-
-    <div class="login">
-        <p>Login</p>
-    </div>
-
-
-    <div class="flex-item-left">
-         <!--<form action="/login" method="POST">-->
-            <form action="/Gerenciador-de-Senhas-PassWizard/frontend/html/login.html" method="POST"></form> 
-        <div class="row">
-        <div class="col-5">
-            <label for="fname"></label>
+        <div class="flex-item-right">
+            <a href="/Gerenciador-de-Senhas-PassWizard/frontend/html/cadastro.html"><button class="voltar">voltar</button></a> 
         </div>
-        <div class="col-5">
-            <input type="text" id="fname" name="nmCompleto" placeholder="Email">
+
+        <div class="flex-item-left">
+            <p>Login</p>
         </div>
-        <div class="row">
-            <div class="col-5">
-                <label for="fname"></label>
+
+
+        <div class="flex-item-left">
+            <form action="/login" method="POST">
+           <!-- <form action="/Gerenciador-de-Senhas-PassWizard/frontend/html/login.html" method="POST">-->
+                <div class="row">
+                <div class="col-5">
+                    <label for="fname"></label>
+                </div>
+                <div class="col-5">
+                    <input type="text" id="fname" name="nmCompleto" placeholder="Email">
+                </div>
+                <div class="row">
+                    <div class="col-5">
+                        <label for="fname"></label>
+                    </div>
+                    <div class="col-5">
+                        <input type="text" id="fname" name="nmCompleto" placeholder="Senha">
+                    </div>
+                </div>
+                <div class="row">
+                    <input type="submit" value="login">
+                    </div>
+                </div>
             </div>
-            <div class="col-5">
-                <input type="text" id="fname" name="nmCompleto" placeholder="Senha">
-            </div>
-        </div>
-        <div class="row">
-            <input type="submit" value="login">
+        </form> 
+        <div class="flex-container">
+            <div class="flex-item-right">
+                <button class="button button1">Crie sua conta </button>
+                <button class="button button2">Esqueci minha senha</button>
             </div>
         </div>
     </div>
