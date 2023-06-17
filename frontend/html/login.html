@@ -7,44 +7,50 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/telaInicial.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/login.css') }}">
     <script src="{{ url_for('static', filename='js/mainPageRedirect.js') }}"></script>
-    <!-- <link rel="stylesheet" href="/Gerenciador-de-Senhas-PassWizard/frontend/css/login.css">
-    <link rel="stylesheet" href="/Gerenciador-de-Senhas-PassWizard/frontend/css/telaInicial.css"> -->
-    <title>Login</title>
+    <!--<link rel="stylesheet" href="/Gerenciador-de-Senhas-PassWizard/frontend/css/login.css">-->
+    <title>Página de Login</title>
 </head>
 <body>
-    <section>
-        <button id="botaoVoltar" onclick="goToMainPage()"> 
-                voltar
-        </button>
-    </section>
+    <div class="flex-container">
+        <div class="flex-item-right">
+            <a href="/Gerenciador-de-Senhas-PassWizard/frontend/html/cadastro.html"><button class="voltar">voltar</button></a> 
+        </div>
 
-    <section class="login">
-        <p>Login</p>
-    </section>
+        <div class="flex-item-left">
+            <p>Login</p>
+        </div>
 
-    <section id="formularioCadastro">
-        <form action="/login" method="POST">
-            <!-- <form action="/Gerenciador-de-Senhas-PassWizard/frontend/html/login.html" method="POST"></form> -->
-            <div class="form-group">
-                <label for="Email"></label>
-                <input type="email" class="form-control" placeholder="Email" name="Email">
-            </div><br>
 
-            <div class="form-group">
-                <label for="Senha"></label>
-                <input type="password" class="form-control" placeholder="Senha" name="Password">
+        <div class="flex-item-left">
+            <form action="/login" method="POST">
+           <!-- <form action="/Gerenciador-de-Senhas-PassWizard/frontend/html/login.html" method="POST">-->
+                <div class="row">
+                <div class="col-5">
+                    <label for="fname"></label>
+                </div>
+                <div class="col-5">
+                    <input type="text" id="fname" name="nmCompleto" placeholder="Email">
+                </div>
+                <div class="row">
+                    <div class="col-5">
+                        <label for="fname"></label>
+                    </div>
+                    <div class="col-5">
+                        <input type="text" id="fname" name="nmCompleto" placeholder="Senha">
+                    </div>
+                </div>
+                <div class="row">
+                    <input type="submit" value="login">
+                    </div>
+                </div>
             </div>
-        </form>
-
-        <section id="botaos">
-            <button type="submit" class="botaoLogin">avançar</button>
-            
-            <span>
-                <button>crie sua conta </button>
-              </span>
-              <span>
-                <button>esqueci minha senha</button>
-              </span>
-        </section>
+        </form> 
+        <div class="flex-container">
+            <div class="flex-item-right">
+                <button class="button button1">Crie sua conta </button>
+                <button class="button button2">Esqueci minha senha</button>
+            </div>
+        </div>
+    </div>
 </body>
 </html>
