@@ -34,7 +34,7 @@ def register():
             backend_functions.save_to_database(full_name, formatted_phone_number, email, hashed_password)
 
         # Redirect to the home page
-        return redirect('/'), jsonify({'message': 'Registration successful', 'type': 'success'})
+        return redirect('/')
     
     elif request.method == 'GET':
 
