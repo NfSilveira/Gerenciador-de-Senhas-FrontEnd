@@ -93,7 +93,9 @@ def login():
 @login_required
 def dashboard():
 
-    passwords = session.get("passwords")
+    user_hash = session.get('user_hash')
+
+    passwords = session.get("passwords") or backend_functions.fetch_passwords(user_hash)
 
     return render_template('senhasCadastradas.html', passwords=passwords)
 
@@ -121,7 +123,24 @@ def new_password():
     elif request.method == 'GET':
 
         return render_template('adicionarNovasSenhas.html')
+    
 
+@app.route('/delete_password', methods=['POST'])
+def delete_password():
+
+    user_hash = session.get('user_hash')
+
+    origin_url = request.json.get('origin_url')
+    origin_name = request.json.get('origin_name')
+    origin_password = request.json.get('origin_password')
+    password_id = request.json.get('password_id')
+
+    backend_functions.delete_password(user_hash, origin_url, origin_name, origin_password, password_id)
+
+    passwords = backend_functions.fetch_passwords(user_hash)
+    session['passwords'] = passwords
+
+    return jsonify(success=True)
 
 @app.route('/logout')
 def logout():

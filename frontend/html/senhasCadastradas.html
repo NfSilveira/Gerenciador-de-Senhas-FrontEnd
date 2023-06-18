@@ -12,6 +12,12 @@
     <link rel="stylesheet" href="/Gerenciador-de-Senhas-PassWizard/frontend/icons8-lápis-100.png">-->
     <script src="{{ url_for('static', filename='js/redirections.js') }}"></script>
     <title>Senhas Cadastradas</title>
+    <style>
+        .custom-swal .swal-button {
+          background-color: #000; /* Set your desired button color */
+          color: #fff; /* Set the text color for the button */
+        }
+    </style>
 </head>
 
 <body>
@@ -28,56 +34,99 @@
     <div class="topnav">
         <div class="search-container">
             <button type="button" onclick="addNewPassword()">Nova Senha</button>
-            <img width="50" height="50" src="https://img.icons8.com/external-neu-royyan-wijaya/50/external-eyes-neu-interface-neu-royyan-wijaya-2.png" alt="external-eyes-neu-interface-neu-royyan-wijaya-2"/>
+            <a href="#" onclick="togglePasswordVisibility()"><img width="50" height="50" src="https://img.icons8.com/external-neu-royyan-wijaya/50/external-eyes-neu-interface-neu-royyan-wijaya-2.png" alt="external-eyes-neu-interface-neu-royyan-wijaya-2"/></a>
         </div>
       </div>
 
-      <form class="form-inline" action="/action_page.php">
-        <label for="email">Sites/Aplicativos</label>
-        <label for="pwd">Senhas</label>
+      <form class="form-inline">
+        <label for="origin">Sites/Aplicativos</label>
+
+        <label for="originUser">Usuários/Logins</label>
+        
+        <label for="password">Senhas</label>
        <!--<label>
           <input type="checkbox" name="remember"> Remember me
         </label>-->
         <div class="formulario">
                 {% for password in passwords %}
 
-
-                <li>
-                    <p>Origem: {{ password[0] }}</p>
-                    <p>Usuário: {{ password[1] }}</p>
-                    <p>Senha: {{ password[2] }}</p>
-                </li>
-                {% endfor %}
-                <!-- <form class="form-inline" action="/action_page.php">
-                    <label for="email"></label>
-                    <input type="email" id="email" placeholder="Gmail" name="email">
-                    <label for="pwd"></label>
-                    <input type="password" id="pwd" placeholder="*****************" name="pswd">
-                    <img width="40" height="40" src="https://img.icons8.com/windows/40/delete.png" alt="delete"/>
+                <form class="form-inline">
+                    <label for="origin"></label>
+                    <input type="text" id="origin" value="{{ password[0] }}" name="origin">
+                    <label for="originUser"></label>
+                    <input type="text" id="originUser" value="{{ password[1] }}" name="origin_user">
+                    <label for="password"></label>
+                    <input type="password" class="password" id="password" value="{{ password[2] }}" name="origin_password">
+                    <input type="hidden" name="password_id" value="{{ password[3] }}">
+                    <a href="#" onclick="confirmDelete('{{ password[0] }}', '{{ password[1] }}', '{{ password[2] }}', '{{ password[3] }}')"><img width="40" height="40" src="https://img.icons8.com/windows/40/delete.png" alt="delete"/></a>
                     <img width="35" height="35" src="https://img.icons8.com/external-tulpahn-detailed-outline-tulpahn/35/external-pencil-stationery-tulpahn-detailed-outline-tulpahn.png" alt="external-pencil-stationery-tulpahn-detailed-outline-tulpahn"/>
-                    <input type="checkbox" name="remember"> Remember me
-                    </label>
                 </form>
-                <form class="form-inline" action="/action_page.php">
-                    <label for="email"></label>
-                    <input type="email" id="email" placeholder="https://www.twitch.tv/" name="email">
-                    <label for="pwd"></label>
-                    <input type="password" id="pwd" placeholder="************" name="pswd">
-                    <img width="40" height="40" src="https://img.icons8.com/windows/40/delete.png" alt="delete"/>
-                    <img width="35" height="35" src="https://img.icons8.com/external-tulpahn-detailed-outline-tulpahn/35/external-pencil-stationery-tulpahn-detailed-outline-tulpahn.png" alt="external-pencil-stationery-tulpahn-detailed-outline-tulpahn"/>       
-
-                </form>
-                <form class="form-inline" action="/action_page.php">
-                    <label for="email"></label>
-                    <input type="email" id="email" placeholder="Riot Games" name="email">
-                    <label for="pwd"></label>
-                    <input type="password" id="pwd" placeholder="**************" name="pswd">
-                    <img width="40" height="40" src="https://img.icons8.com/windows/40/delete.png" alt="delete"/>
-                    <img width="35" height="35" src="https://img.icons8.com/external-tulpahn-detailed-outline-tulpahn/35/external-pencil-stationery-tulpahn-detailed-outline-tulpahn.png" alt="external-pencil-stationery-tulpahn-detailed-outline-tulpahn"/>       
-
-                </form> -->
+                {% endfor %}
 
         </div>
     </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script>
+        function togglePasswordVisibility() {
+            var passwordInputs = document.getElementsByClassName("password");
+            
+            for (var i = 0; i < passwordInputs.length; i++) {
+                var passwordInput = passwordInputs[i];
+                if (passwordInput.type === "password") {
+                passwordInput.type = "text";
+                } else {
+                passwordInput.type = "password";
+                }
+            }
+        }
+
+        function confirmDelete(origin_url, origin_name, password, password_id) {
+        Swal.fire({
+            title: 'Você quer mesmo excluir a senha?',
+            text: "Ela será permanentemente apagada!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Sim, exclua!',
+            cancelButtonText: 'Não, não exclua!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                fetch('/delete_password', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ origin_url: origin_url, origin_name: origin_name,  origin_password: password, password_id: password_id })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        Swal.fire({
+                            title: 'Excluída!',
+                            text: 'A senha foi excluída.',
+                            icon: 'success',
+                            customClass: {
+                                container: 'custom-swal'
+                            },
+                            buttonsStyling: true,
+                            confirmButtonClass: 'swal-button'
+                        }).then(() => {
+                            goToPasswordsPage();
+                        });
+                    } else {
+                        Swal.fire('Erro!', 'A senha não pôde ser deletada.', 'error');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    Swal.fire('Erro!', 'Um erro ocorreu ao tentar excluir a senha.', 'error');
+                });
+            }
+        });
+        }
+    </script>
 </body>
 </html>

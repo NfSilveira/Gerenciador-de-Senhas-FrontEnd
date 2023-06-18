@@ -89,7 +89,7 @@ def fetch_passwords(user_hash):
     conn = connect()
 
     cur = conn.cursor()
-    cur.execute(f"SELECT _origin, _origin_username, _origin_password FROM stored_passwords WHERE _user_hash = '{user_hash}';")
+    cur.execute(f"SELECT _origin, _origin_username, _origin_password, _password_id FROM stored_passwords WHERE _active = true AND _user_hash = '{user_hash}';")
     passwords = cur.fetchall()
 
     if passwords:
@@ -106,6 +106,10 @@ def fetch_passwords(user_hash):
 
             decoded_passwords_list.append(decoded_password)
 
+    else:
+
+        decoded_passwords_list = []
+
     return decoded_passwords_list or []
 
 
@@ -121,5 +125,19 @@ def add_new_password(user_hash, origin_url, origin_name, origin_password):
 
     conn.commit()
 
+    cur.close()
+    conn.close()
+
+
+def delete_password(user_hash, origin_url, origin_name, origin_password, password_id):
+
+    password_id = int(password_id)
+
+    encoded_password = base64.b64encode(cipher.encrypt(origin_password.encode())).decode()
+
+    conn = connect()
+    cur = conn.cursor()
+    cur.execute(f"UPDATE stored_passwords SET _active = false WHERE _user_hash = '{user_hash}' AND _password_id = {password_id};")
+    conn.commit()
     cur.close()
     conn.close()
