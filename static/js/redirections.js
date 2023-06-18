@@ -11,6 +11,10 @@ function goToPasswordsPage() {
     window.location.href = "/passwords";
 }
 
+function goToForgotMyPasswordPage() {
+    window.location.href = "/forgot_my_password";
+}
+
 function addNewPassword() {
     window.location.href = "/new_password";
 }

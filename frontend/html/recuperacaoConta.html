@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/recuperacaoConta.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/senhasCadastradas.css') }}">
+    <script src="{{ url_for('static', filename='js/redirections.js') }}"></script>
     <title>Recuperação de Conta</title>
 </head>
 <body>
@@ -22,11 +22,12 @@
         <form>
             <label for="fname"></label><br>
             <input type="text" id="codigo" name="fname" placeholder="Inserir Código"><br>
-          </form>
+            <button type="submit" class="botaoAvancar">avançar</button>
+        </form>
     </section>
 
-    <section id="botaAvancar">
-        <button type="submit" class="botaAvancar">avançar</button>
-    </section>
+    <!-- <section id="botaoAvancar">
+        <button type="submit" class="botaoAvancar">avançar</button>
+    </section> -->
 </body>
 </html>
