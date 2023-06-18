@@ -1,3 +1,4 @@
 bcrypt
 flask
 psycopg2-binary
+cryptography
