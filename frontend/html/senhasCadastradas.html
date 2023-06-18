@@ -7,17 +7,8 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/senhasCadastradas.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='icons8-lápis-100.png') }}">
     <link rel="stylesheet" href="https://fontawesome.com/icons/eye-slash?f=classic&s=light"> 
-    <!-- <link rel="stylesheet" href="/Gerenciador-de-Senhas-PassWizard/frontend/fontawesome-free-6.4.0-web/css/all.min.css">
-    <link rel="stylesheet" href="/Gerenciador-de-Senhas-PassWizard/frontend/css/senhasCadastradas.css">
-    <link rel="stylesheet" href="/Gerenciador-de-Senhas-PassWizard/frontend/icons8-lápis-100.png">-->
     <script src="{{ url_for('static', filename='js/redirections.js') }}"></script>
     <title>Senhas Cadastradas</title>
-    <style>
-        .custom-swal .swal-button {
-          background-color: #000; /* Set your desired button color */
-          color: #fff; /* Set the text color for the button */
-        }
-    </style>
 </head>
 
 <body>
@@ -30,23 +21,13 @@
         </div>
     </div>
 
-    
-    <div class="topnav">
-        <div class="search-container">
-            <button type="button" onclick="addNewPassword()">Nova Senha</button>
-            <a href="#" onclick="togglePasswordVisibility()"><img width="50" height="50" src="https://img.icons8.com/external-neu-royyan-wijaya/50/external-eyes-neu-interface-neu-royyan-wijaya-2.png" alt="external-eyes-neu-interface-neu-royyan-wijaya-2"/></a>
-        </div>
-      </div>
-
       <form class="form-inline">
         <label for="origin">Sites/Aplicativos</label>
 
-        <label for="originUser">Usuários/Logins</label>
+        <label for="originUser" style="margin-left: 20%;">Usuários/Logins</label>
         
-        <label for="password">Senhas</label>
-       <!--<label>
-          <input type="checkbox" name="remember"> Remember me
-        </label>-->
+        <label for="password" style="margin-left: 20%;">Senhas</label>
+
         <div class="formulario">
                 {% for password in passwords %}
 
@@ -62,10 +43,14 @@
                     <img width="35" height="35" src="https://img.icons8.com/external-tulpahn-detailed-outline-tulpahn/35/external-pencil-stationery-tulpahn-detailed-outline-tulpahn.png" alt="external-pencil-stationery-tulpahn-detailed-outline-tulpahn"/>
                 </form>
                 {% endfor %}
-
         </div>
     </div>
-
+    <div class="topnav">
+        <div class="search-container">
+            <button type="button" onclick="addNewPassword()" style="width: 40%; margin-top: 15em; margin-left: 10em;">Nova Senha</button>
+            <a href="#" onclick="togglePasswordVisibility()"><img width="50" height="50" src="https://img.icons8.com/external-neu-royyan-wijaya/50/external-eyes-neu-interface-neu-royyan-wijaya-2.png" alt="external-eyes-neu-interface-neu-royyan-wijaya-2"/></a>
+        </div>
+    </div>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <script>

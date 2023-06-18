@@ -96,10 +96,10 @@
     {
         margin-top: 2em;
     }
-    #email,#pwd
+    #origin, #originUser, #password
     {
-        font-size: 22px;
-        width: 40%;
+        font-size: 20px;
+        width: 30%;
         margin-top: 0.5em;
     }
 

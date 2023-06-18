@@ -6,18 +6,18 @@ body
     font-style: normal;
 }
 #botaoVoltar{
-    background-color: black;
+    margin-left: 77%;
+    background-color: #000000;
     color: #F5F5F5;
-    font-weight: 300;
-    font-size: 26px;
-    position: absolute;
-    height: 58px;
-    width: 170px;
-    left: 1747px;
-    right: 38px;
-    top: 56px;
     border-radius: 15px;
-    border: 2px solid black;
+    width:14%;
+    height: 50px;
+    font-weight: 300;
+    font-size: 20px;
+    align-items: center;
+    letter-spacing: -0.015em;
+    margin-bottom: 1em; /*FORMULÁRIO DESCE*/
+    margin-top: 0;
     text-transform: uppercase;
 }
 
@@ -31,60 +31,33 @@ body
 }
 
 
-#botaosair{
-    background-color: black;
-    color: #F5F5F5;
-    font-weight: 300;
-    font-size: 26px;
-    position: absolute;
-    height: 58px;
-    width: 170px;
-    left: 1747px;
-    right: 38px;
-    top: 56px;
-    border-radius: 15px;
-    border: 2px solid black;
-    text-transform: uppercase;
-}
-
-#botaosair:hover
-{
-    opacity: 0.5s;
-    transition: 0.3s;
-    background-color: #F5F5F5;
-    color: black;
-    border: 2px solid black;
-}
-
 .adicionarNovasSenhas p
 {
     font-weight: 600;
     font-size: 26px;
-    padding-top: 2em;
+    padding-top: 0.5em;
     font-weight: 900;
-    font-size: 36px;
-    margin-left: 20em;
+    font-size: 28px;
+    margin-left: 2em;
     padding-right: 5em;
 }
 
 .form-control
 {
-    text-transform: uppercase;
-    font-weight: 300;
-    font-size: 26px;
+    font-size: 20px;
     line-height: 18px;
     align-items: center;
-    font-family: 'Comfortaa';
     font-style: normal;
     width: 35em;
-    height: 2em;
-    margin-left: 10em;
+    height: 1em;
+    text-transform: uppercase;
+    font-family: 'Comfortaa';
 }
 
 .formularioAdicionarNovasSenhas
 {
-    padding-left: 20em;
-    padding-top: 10em;
+    padding-top: 2em;
+    margin-left: 15em;
 }
 
 
@@ -93,16 +66,14 @@ body
     border-radius: 15px;
     border: 2px solid black;
     text-transform: uppercase;
-    height: 3em;
-    width: 15em;
-    margin-top: 50px;
+    height: 2em;
+    width: 20%;
     background-color: black;
     color: #F5F5F5;
-    margin-left: 23em;
-    font-weight: 900;
-    font-size:x-large;
-    
-    
+    margin-left: 12em;
+    font-weight: 300;
+    font-size: 22px;
+    margin-top: 3em;
 }
 
 .botaoAdicionar:hover

@@ -4,10 +4,8 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/telaInicial.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/login.css') }}">
     <script src="{{ url_for('static', filename='js/redirections.js') }}"></script>
-    <!--<link rel="stylesheet" href="/Gerenciador-de-Senhas-PassWizard/frontend/css/login.css">-->
     <title>Página de Login</title>
 </head>
 <body>
@@ -23,7 +21,6 @@
 
         <div class="flex-item-left">
             <form action="/login" method="POST">
-           <!-- <form action="/Gerenciador-de-Senhas-PassWizard/frontend/html/login.html" method="POST">-->
                 <div class="row">
                     <div class="col-5">
                         <label for="fname"></label>
@@ -50,8 +47,10 @@
         </form> 
         <div class="flex-container">
             <div class="flex-item-right">
-                <button class="button button1" onclick="goToRegisterPage()">Crie sua conta </button>
-                <button class="button button2">Esqueci minha senha</button>
+               <div class="botoes">
+                    <button class="button button1" onclick="goToRegisterPage()">Crie sua conta </button>
+                    <button class="button button2">Esqueci minha senha</button>
+                </div>
             </div>
         </div>
     </div>
