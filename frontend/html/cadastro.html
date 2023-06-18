@@ -3,58 +3,104 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/cadastro.css">
-     <link rel="stylesheet" href="{{ url_for('static', filename='css/telaInicial.css') }}">
+     <link rel="stylesheet" href="{{ url_for('static', filename='css/cadastro.css') }}">
+     <script src="{{ url_for('static', filename='js/redirections.js') }}"></script>
      <!--<link rel="stylesheet" href="/Gerenciador-de-Senhas-PassWizard/frontend/css/cadastro.css"> -->
     <title>Página de Cadastro</title>
+    <style>
+        .custom-swal .swal-button {
+          background-color: #000; /* Set your desired button color */
+          color: #fff; /* Set the text color for the button */
+        }
+    </style>
 </head>
 <body>
 
   <div class="flex-container">
     <div class="flex-item-right">
-        <a href="/register"><button class="cadastro">voltar</button></a>
+        <button onclick="goToMainPage()">voltar</button>
            <!--<a href="/Gerenciador-de-Senhas-PassWizard/frontend/html/cadastro.html"><button class="cadastro">voltar</button></a>--> 
     </div>
 
 
     <div class="flex-item-left">   
-        <form action="/action_page.php">
-        <div class="row">
-            <div class="col-5">
-            <label for="fname">Nome Completo</label>
+        <form action="/register" method="POST">
+            <div class="row">
+                <div class="col-5">
+                <label for="fname">Nome Completo</label>
+                </div>
+                <div class="col-5">
+                <input type="text" id="fname" name="FullName" placeholder="Nome Completo">
+                </div>
             </div>
-            <div class="col-5">
-            <input type="text" id="fname" name="firstname" placeholder="Nome Completo">
+            <div class="row">
+                <div class="col-5">
+                <label for="phoneNumber">Telefone</label>
+                </div>
+                <div class="col-5">
+                <input type="text" id="phoneNumber" name="PhoneNumber" placeholder="(xx - xxxxx-xxxx)">
+                </div>
             </div>
-        </div>
-        <div class="row">
-            <div class="col-5">
-            <label for="lname">Telefone</label>
+            <div class="row">
+                <div class="col-5">
+                <label for="emailField">Email</label>
+                </div>
+                <div class="col-5">
+                <input type="text" id="emailField" name="Email" placeholder="Email  Principal">
+                </div>
             </div>
-            <div class="col-5">
-            <input type="text" id="lname" name="lastname" placeholder="(xx - xxxxx-xxxx)">
+            <div class="row">
+                <div class="col-5">
+                <label for="lname">Senha</label>
+                </div>
+                <div class="col-5">
+                <input type="password" id="passwordInput" name="Password" placeholder="Escolha uma senha forte ">
+                </div>
             </div>
-        </div>
-        <div class="row">
-            <div class="col-5">
-            <label for="lname">Email</label>
+            <div class="row">
+                <button type="button" class="botaoCadastrar" onclick="validateForm()">cadastrar</button>
             </div>
-            <div class="col-5">
-            <input type="text" id="lname" name="lastname" placeholder="Email  Principal">
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-5">
-            <label for="lname">Senha</label>
-            </div>
-            <div class="col-5">
-            <input type="text" id="lname" name="lastname" placeholder="Escolha uma senha forte ">
-            </div>
-        </div>
-        <div class="row">
-            <input type="submit" value="Cadastrar">
-        </div>
     </form>
   </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+
+        function validateForm() {
+            console.log("Validating form...");
+            var passwordInput = document.getElementById("passwordInput");
+            var password = passwordInput.value;
+
+            // var pattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/;
+            var pattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^A-Za-z0-9])(?=.{8,})/;
+            // (?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^A-Za-z0-9])(?=.{8,})
+            var isStrong = pattern.test(password);
+
+            if (!isStrong) {
+
+                Swal.fire({
+                        title: 'A senha digitada não é forte o suficiente!',
+                        text: 'Atente-se às restrições: A senha deve ter 8 ou mais caracteres, pelo menos uma letra maiúscula, uma minúscula, um número e um caractere especial!',
+                        icon: 'warning',
+                        customClass: {
+                        container: 'custom-swal'
+                        },
+                        buttonsStyling: true,
+                        confirmButtonClass: 'swal-button'
+                });
+            } else {
+                Swal.fire({
+                        title: 'Credenciais cadastradas com sucesso!',
+                        icon: 'success',
+                        customClass: {
+                        container: 'custom-swal'
+                        },
+                        showConfirmButton: false,
+                        timer: 1500
+                });
+                document.querySelector('form').submit();
+            }
+        }
+    </script>
 </body>
 </html>

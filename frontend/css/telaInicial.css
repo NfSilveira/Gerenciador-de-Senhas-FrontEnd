@@ -10,11 +10,15 @@
 .flex-container {
   display: flex;
   flex-direction: row;
-  font-size: 30px;
 }
-
+body > div.flex-container > div.flex-item-left
+{
+  margin-top: 0.5%;
+  text-align: center;
+  padding-right: 0;
+  
+}
 .flex-item-left {
-  padding: 10px;
   flex: 70%;
 }
 
@@ -23,10 +27,10 @@
   flex: 30%;
   text-decoration: none;
 }
-
-button {
-  display: block;
- }
+body > div.flex-container > div.flex-item-left > p.bemVindo, p.acesso
+{
+  font-size: 25px;
+}
 
   body > div > div.flex-item-left
   {
@@ -44,30 +48,33 @@ button {
     text-shadow: 10px 4px 4px rgba(0, 0, 0, 0.25);
   }
 
+  button {
+    display: block;
+   }
+  
   body > div > div.flex-item-right > a:nth-child(1) > button,
   body > div > div.flex-item-right > a:nth-child(2) > button
   {
     background-color: #000000;
     color: #F5F5F5;
     border-radius: 15px;
-    width: 406px;
     height: 70px;
-    left: 942px;
-    top: 123px;
+    margin-left: 40%;
     font-style: normal;
     font-weight: 400;
     font-size: 28px;
-    line-height: 54px;
     align-items: center;
     letter-spacing: -0.015em
   }
   body > div > div.flex-item-right > a:nth-child(1) > button
   {
       margin-top: 50px;
+      width: 60%;
   }
   body > div > div.flex-item-right > a:nth-child(2) > button
   {
       margin-top: 20px;
+      width: 60%;
   }
 
   body > div > div.flex-item-right > a:nth-child(1) > button:hover,
@@ -80,11 +87,10 @@ button {
 
   body > div > div.flex-item-right > img
   {
-    left: 90.5em;
-    margin-top:40%;
-    bottom: 17.33%;
-    width:400px;
-    height: 220px;
+
+    margin-top:20%;
+    width: auto;
+    margin-left: 45%;
   }
 
   /* Responsive layout - makes a one column-layout instead of two-column layout */
@@ -95,10 +101,16 @@ button {
     {
       flex-direction: column;
     }
-    body > div > div.flex-item-left
+    body > div.flex-container > div.flex-item-left
     {
-        font-size: 14px;
-        padding-right: 0;
+      padding-left: 0;
+    }
+    body > div.flex-container > div.flex-item-left, body > div.flex-container > div.flex-item-left > p.bemVindo,
+    body > div.flex-container > div.flex-item-left > p.acesso
+    {
+      margin-left: 0;
+      font-size: 12px;
+      text-align: none;
     }
     body > div > div.flex-item-right > a:nth-child(1) > button,
     body > div > div.flex-item-right > a:nth-child(2) > button
@@ -106,19 +118,21 @@ button {
         width: 200px;
         height: 50px;
         font-size: 20px;
-        align-items: center;
+        margin-left: 5em;
+        margin-top: 2;
 
     }
     body > div > div.flex-item-right
     {
         position: relative;
-        margin-left: 130px;
+        margin-left: 0;
+        padding: 0;
     }
     body > div > div.flex-item-right > img
     {
         width: 90px;
         height: 80px;
-        margin-left: 30px;
+        margin-left: 10em;
     }
  }
     @media (min-width: 600px) and (max-width: 800px)

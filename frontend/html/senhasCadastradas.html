@@ -4,85 +4,80 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/telaInicial.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/senhasCadastradas.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='icons8-lápis-100.png') }}">
-    <link rel="stylesheet" href="https://fontawesome.com/icons/eye-slash?f=classic&s=light">
+    <link rel="stylesheet" href="https://fontawesome.com/icons/eye-slash?f=classic&s=light"> 
     <!-- <link rel="stylesheet" href="/Gerenciador-de-Senhas-PassWizard/frontend/fontawesome-free-6.4.0-web/css/all.min.css">
-    <link rel="stylesheet" href="/Gerenciador-de-Senhas-PassWizard/frontend/">
     <link rel="stylesheet" href="/Gerenciador-de-Senhas-PassWizard/frontend/css/senhasCadastradas.css">
-    <link rel="stylesheet" href="/Gerenciador-de-Senhas-PassWizard/frontend/html/telaInicial.html">
-    <link rel="stylesheet" href="/Gerenciador-de-Senhas-PassWizard/frontend/icons8-lápis-100.png"> -->
-    <script src="{{ url_for('static', filename='js/mainPageRedirect.js') }}"></script>
+    <link rel="stylesheet" href="/Gerenciador-de-Senhas-PassWizard/frontend/icons8-lápis-100.png">-->
+    <script src="{{ url_for('static', filename='js/redirections.js') }}"></script>
     <title>Senhas Cadastradas</title>
 </head>
 
 <body>
-    <section>
-        <button id="botaosair" onclick="goToMainPage()"> 
-            Sair
-        </button>
-    </section>
+    <div class="flex-container">
+        <div class="flex-item-right">
+            <button class="voltar" onclick="logout()">sair</button>
+        </div>
+        <div class="flex-item-left">
+            <p>Senhas Cadastradas</p>
+        </div>
+    </div>
 
-    <section class="senhasCadastradas">
-        <p>Senhas Cadastradas</p>
-    </section>
+    
+    <div class="topnav">
+        <div class="search-container">
+            <button type="button" onclick="addNewPassword()">Nova Senha</button>
+            <img width="50" height="50" src="https://img.icons8.com/external-neu-royyan-wijaya/50/external-eyes-neu-interface-neu-royyan-wijaya-2.png" alt="external-eyes-neu-interface-neu-royyan-wijaya-2"/>
+        </div>
+      </div>
 
-    <section id="formularioPesquisar">
-        <form>
-            <span>
-                <div class="form-group">
-                    <i class="fa-solid fa-magnifying-glass fa-3x"></i>
-                    <input type="pesquisar" class="form-control" placeholder="Pesquisar local">
-                    <button class="novaSenha">novaSenha</button>
-                    <i class="fa-sharp fa-solid fa-eye-slash fa-3x"></i>
-                </div>
-            </span>
-            </form>
-            </section>
+      <form class="form-inline" action="/action_page.php">
+        <label for="email">Sites/Aplicativos</label>
+        <label for="pwd">Senhas</label>
+       <!--<label>
+          <input type="checkbox" name="remember"> Remember me
+        </label>-->
+        <div class="formulario">
+                {% for password in passwords %}
 
-            <section id="titulos">
-                <p class="sitesTitulo"> Sites/Aplicativos</p>
-                <p class="senhasTitulo"> Senhas </p>
-            </section>
 
-        <section id="salvarSites">
-            <form>
-                <span>
-                    <div class="form-row">
-                    <div class="col">
-                        <label for="sites"></label>
-                        <input type="url" class="form-control" placeholder="Gmail">
-                        <label for="senhas"></label>
-                        <input type="password" class="form-control" placeholder="*****************">
-                        <img width="50" height="50" src="https://img.icons8.com/ios/50/000000/delete--v1.png" alt="delete--v1"/>
-                        <img width="50" height="50" src="https://img.icons8.com/ios-filled/50/pencil--v1.png" alt="pencil--v1"/>
-                    </div><br>
-                </span>
-                <span>
-                  <div class="form-row">
-                    <div class="col">
-                      <label for="sites"></label>
-                      <input type="url" class="form-control" placeholder="https://www.twitch.tv/">
-                      <label for="senhas"></label>
-                      <input type="password" class="form-control" placeholder="************">
-                      <img width="50" height="50" src="https://img.icons8.com/ios/50/000000/delete--v1.png" alt="delete--v1"/>
-                      <img width="50" height="50" src="https://img.icons8.com/ios-filled/50/pencil--v1.png" alt="pencil--v1"/>
-                    </div><br>
-                </span>
-                <span>
-                    <div class="form-row">
-                        <div class="col">
-                          <label for="sites"></label>
-                          <input type="url" class="form-control" placeholder="Riot Games">
-                          <label for="senhas"></label>
-                          <input type="password" class="form-control" placeholder="*****************">
-                          <img src="{{ url_for('static', filename='Imagens/lixeira.png') }}" alt=""> <img src="{{ url_for('static', filename='Imagens/lapis.png') }}" alt="">
-                          <img width="50" height="50" src="https://img.icons8.com/ios/50/000000/delete--v1.png" alt="delete--v1"/>
-                          <img width="50" height="50" src="https://img.icons8.com/ios-filled/50/pencil--v1.png" alt="pencil--v1"/>
-                    </span>
-              </form>
-    </section>
+                <li>
+                    <p>Origem: {{ password[0] }}</p>
+                    <p>Usuário: {{ password[1] }}</p>
+                    <p>Senha: {{ password[2] }}</p>
+                </li>
+                {% endfor %}
+                <!-- <form class="form-inline" action="/action_page.php">
+                    <label for="email"></label>
+                    <input type="email" id="email" placeholder="Gmail" name="email">
+                    <label for="pwd"></label>
+                    <input type="password" id="pwd" placeholder="*****************" name="pswd">
+                    <img width="40" height="40" src="https://img.icons8.com/windows/40/delete.png" alt="delete"/>
+                    <img width="35" height="35" src="https://img.icons8.com/external-tulpahn-detailed-outline-tulpahn/35/external-pencil-stationery-tulpahn-detailed-outline-tulpahn.png" alt="external-pencil-stationery-tulpahn-detailed-outline-tulpahn"/>
+                    <input type="checkbox" name="remember"> Remember me
+                    </label>
+                </form>
+                <form class="form-inline" action="/action_page.php">
+                    <label for="email"></label>
+                    <input type="email" id="email" placeholder="https://www.twitch.tv/" name="email">
+                    <label for="pwd"></label>
+                    <input type="password" id="pwd" placeholder="************" name="pswd">
+                    <img width="40" height="40" src="https://img.icons8.com/windows/40/delete.png" alt="delete"/>
+                    <img width="35" height="35" src="https://img.icons8.com/external-tulpahn-detailed-outline-tulpahn/35/external-pencil-stationery-tulpahn-detailed-outline-tulpahn.png" alt="external-pencil-stationery-tulpahn-detailed-outline-tulpahn"/>       
 
+                </form>
+                <form class="form-inline" action="/action_page.php">
+                    <label for="email"></label>
+                    <input type="email" id="email" placeholder="Riot Games" name="email">
+                    <label for="pwd"></label>
+                    <input type="password" id="pwd" placeholder="**************" name="pswd">
+                    <img width="40" height="40" src="https://img.icons8.com/windows/40/delete.png" alt="delete"/>
+                    <img width="35" height="35" src="https://img.icons8.com/external-tulpahn-detailed-outline-tulpahn/35/external-pencil-stationery-tulpahn-detailed-outline-tulpahn.png" alt="external-pencil-stationery-tulpahn-detailed-outline-tulpahn"/>       
+
+                </form> -->
+
+        </div>
+    </div>
 </body>
 </html>

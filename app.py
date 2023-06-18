@@ -1,4 +1,5 @@
-from flask import Flask, jsonify, render_template, request, session, redirect
+from flask import Flask, jsonify, render_template, request, session, redirect, url_for
+from functools import wraps
 import backend.backend_functions as backend_functions
 import os
 import re
@@ -6,6 +7,21 @@ import re
 app = Flask(__name__, template_folder='frontend/html', static_folder='static')
 secret_key = os.urandom(12).hex()
 app.secret_key = secret_key
+
+
+def login_required(f):
+
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+
+        if 'username' not in session:
+
+            return redirect(url_for('login'))
+        
+        return f(*args, **kwargs)
+    
+    return decorated_function
+
 
 @app.route('/')
 def index():
@@ -50,12 +66,19 @@ def login():
 
         if request.form.get('Password') != '' and email != '':
 
-            match, username = backend_functions.check_login_credentials(email, request.form.get('Password'))
+            match, username, user_hash = backend_functions.check_login_credentials(email, request.form.get('Password'))
 
             if match:
 
                 session['username'] = username
-                return redirect('/dashboard')
+                session['user_hash'] = user_hash
+                passwords = backend_functions.fetch_passwords(user_hash)
+
+                # Store the passwords in a session variable
+                session["passwords"] = passwords
+
+                # Redirect to the route that displays the passwords
+                return redirect(url_for("dashboard"))
             
             else:
                 
@@ -66,10 +89,47 @@ def login():
         return render_template('login.html')
     
 
-@app.route('/dashboard')
+@app.route('/passwords')
+@login_required
 def dashboard():
 
-    return render_template('senhasCadastradas.html')
+    passwords = session.get("passwords")
+
+    return render_template('senhasCadastradas.html', passwords=passwords)
+
+
+@app.route('/new_password', methods=['GET', 'POST'])
+@login_required
+def new_password():
+
+    if request.method == 'POST':
+
+        user_hash = session.get('user_hash')
+
+        origin_url = request.form.get('originURL')
+        origin_name = request.form.get('originName')
+        origin_password = request.form.get('originPassword')
+
+        backend_functions.add_new_password(user_hash, origin_url, origin_name, origin_password)
+
+        # Fetch the updated passwords from the database
+        passwords = backend_functions.fetch_passwords(user_hash)
+        session['passwords'] = passwords
+
+        return redirect('/passwords')
+
+    elif request.method == 'GET':
+
+        return render_template('adicionarNovasSenhas.html')
+
+
+@app.route('/logout')
+def logout():
+
+    # Clear the session data
+    session.clear()
+    # Redirect the user to the home page or any other desired location
+    return redirect('/')
 
 
 if __name__ == '__main__':

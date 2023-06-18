@@ -1,96 +1,173 @@
-
 @import url('https://fonts.googleapis.com/css2?family=Comfortaa&display=swap');
 
-body
-{
-    font-family: 'Comfortaa';
-    font-style: normal;
-
+*{
+  box-sizing: border-box;
+  font-family: 'Comfortaa';
+  font-style: normal;
+  text-decoration: none;
 }
-#telaInicial{
+
+.flex-container {
+  display: flex;
+  flex-direction: row;
+}
+body > div.flex-container > div.flex-item-left
+{
+  margin-top: 0.5%;
+  text-align: center;
+  padding-right: 0;
+  
+}
+.flex-item-left {
+  flex: 70%;
+}
+
+.flex-item-right {
+  padding: 10px;
+  flex: 30%;
+  text-decoration: none;
+}
+body > div.flex-container > div.flex-item-left > p.bemVindo, p.acesso
+{
+  font-size: 25px;
+}
+
+  body > div > div.flex-item-left
+  {
     font-weight: 300;
     font-size: 36px;
-    line-height: 40px;
+    line-height: 50px;
     align-items: center;
     letter-spacing: -0.015em;
     color: #000000;
-    margin-top: 130px;
-}
+    margin-top: 2px;
+    padding-top: 5em;
+    padding-left: 5em;
+    padding-right: 15em;
+    font-weight: bold;
+    text-shadow: 10px 4px 4px rgba(0, 0, 0, 0.25);
+  }
 
-#telaInicial p.bemVindo
-{
-   padding-top: 5em;
-   padding-left: 5em;
-   padding-right: 35em;
-   font-weight: bold;
-   text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-
-}
-
-#telaInicial p.acesso
-{
-   padding-top: 0.5em;
-   padding-left: 5em;
-   padding-right: 37em;
-   font-weight: bold;
-   text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-
-}
-
-#botao .cadastro
-{
-    position: absolute;
-    width: 406px;
-    height: 97px;
-    left: 30em;
-    top: 123px;
+  button {
+    display: block;
+   }
+  
+  body > div > div.flex-item-right > a:nth-child(1) > button,
+  body > div > div.flex-item-right > a:nth-child(2) > button
+  {
     background-color: #000000;
     color: #F5F5F5;
-    font-weight: 400;
-    font-size: 48px;
-    font-family: 'Comfortaa';
-    font-style: normal;
     border-radius: 15px;
-    
-}
-
-#botao .cadastro:hover 
-{
-    opacity: 0.6;
-    transition: 0.3s;
-    background-color: #F5F5F5;
-    color: #000000;
-}
-
-#botao .login{
-    background-color: #000000;
-    color: #F5F5F5;
-    width: 406px;
-    height: 97px;
-    margin-top: -365px;
-    border-radius: 15px;
-    left: 30em;
-    font-weight: 400;
-    font-size: 48px;
-    position: absolute;
-    font-family: 'Comfortaa';
+    height: 70px;
+    margin-left: 40%;
     font-style: normal;
-}
+    font-weight: 400;
+    font-size: 28px;
+    align-items: center;
+    letter-spacing: -0.015em
+  }
+  body > div > div.flex-item-right > a:nth-child(1) > button
+  {
+      margin-top: 50px;
+      width: 60%;
+  }
+  body > div > div.flex-item-right > a:nth-child(2) > button
+  {
+      margin-top: 20px;
+      width: 60%;
+  }
 
-#botao .login:hover 
-{
-    opacity: 0.6;
-    transition: 0.5s;
-    background-color: #F5F5F5;
-    color: #000000;
-}
+  body > div > div.flex-item-right > a:nth-child(1) > button:hover,
+  body > div > div.flex-item-right > a:nth-child(2) > button:hover
+  {
+      background-color: #ffffff;
+      color: #000000;
+      border-style: 10px #000000;
+  }
 
-#logo img
-{
-    position: absolute;
-    left: 90.5em;
-    margin-top: 56.68%;
-    bottom: 17.33%;
-    width: 380px;
-    height: 190px;
-}
+  body > div > div.flex-item-right > img
+  {
+
+    margin-top:20%;
+    width: auto;
+    margin-left: 45%;
+  }
+
+  /* Responsive layout - makes a one column-layout instead of two-column layout */
+/* Responsive layout - makes a one column-layout instead of two-column layout */
+@media (max-width: 600px)
+ {
+    .flex-container 
+    {
+      flex-direction: column;
+    }
+    body > div.flex-container > div.flex-item-left
+    {
+      padding-left: 0;
+    }
+    body > div.flex-container > div.flex-item-left, body > div.flex-container > div.flex-item-left > p.bemVindo,
+    body > div.flex-container > div.flex-item-left > p.acesso
+    {
+      margin-left: 0;
+      font-size: 12px;
+      text-align: none;
+    }
+    body > div > div.flex-item-right > a:nth-child(1) > button,
+    body > div > div.flex-item-right > a:nth-child(2) > button
+    {
+        width: 200px;
+        height: 50px;
+        font-size: 20px;
+        margin-left: 5em;
+        margin-top: 2;
+
+    }
+    body > div > div.flex-item-right
+    {
+        position: relative;
+        margin-left: 0;
+        padding: 0;
+    }
+    body > div > div.flex-item-right > img
+    {
+        width: 90px;
+        height: 80px;
+        margin-left: 10em;
+    }
+ }
+    @media (min-width: 600px) and (max-width: 800px)
+    {
+        .flex-container 
+    {
+      flex-direction: column;
+    }
+    body > div > div.flex-item-left
+    {
+        font-size: 20px;
+        padding-right: 0;
+        padding-top: 0;
+    }
+    body > div > div.flex-item-right > a:nth-child(1) > button,
+    body > div > div.flex-item-right > a:nth-child(2) > button
+    {
+        width: 300px;
+        height: 70px;
+        font-size: 30px;
+        align-items: center;
+
+    }
+    body > div > div.flex-item-right
+    {
+        position: relative;
+        margin-left: 130px;
+    }
+    body > div > div.flex-item-right > img
+    {
+        width: 100px;
+        height: 90px;
+        margin-left: 80px;
+        margin-top: 70px;
+    }
+    }
+  
+  
