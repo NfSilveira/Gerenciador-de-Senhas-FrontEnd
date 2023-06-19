@@ -188,3 +188,43 @@ def check_for_existing_credentials(phone_number, email_address):
     conn.close()
 
     return email_exists, phone_number_exists, both_exists
+
+
+def check_for_existing_email(email_address):
+
+    email_exists = False
+
+    conn = connect()
+    cur = conn.cursor()
+
+    cur.execute(f"SELECT _user_hash FROM login_credentials WHERE _user_email = '{email_address}';")
+    email_checking_query_results = cur.fetchone()
+
+    if email_checking_query_results is not None:
+
+        email_exists = True
+
+    cur.close()
+    conn.close()
+
+    return email_exists
+
+
+def update_login_credentials_password(email, new_password):
+
+    try:
+
+        conn = connect()
+
+        cur = conn.cursor()
+
+
+        cur.execute(f"UPDATE login_credentials SET _user_password = '{new_password}' WHERE _user_email = '{email}';")
+
+        conn.commit()
+        cur.close()
+        conn.close()
+
+    except (Exception, psycopg2.DatabaseError) as e:
+
+        print(str(e))

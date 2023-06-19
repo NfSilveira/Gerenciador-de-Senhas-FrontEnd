@@ -7,6 +7,12 @@
     <link rel="icon" href="{{ url_for('static', filename='Imagens/favicon.ico') }}">
     <script src="{{ url_for('static', filename='js/redirections.js') }}"></script>
     <title>Recuperação de Conta</title>
+    <style>
+        .custom-swal .swal-button {
+          background-color: #000; /* Set your desired button color */
+          color: #fff; /* Set the text color for the button */
+        }
+    </style>
 </head>
 <body>
     <section>
@@ -19,13 +25,76 @@
     </section>
 
     <section class="formularioRecuperacao">
-        <p>Um e-mail com um código de verificação acaba de ser enviado para xxx•••••••••••@xxxx.com</p>
-        <form>
+        <p>Esqueceu sua senha? Digite aqui o email da sua conta e te ajudaremos!</p>
+        <form action="/send_password_recovery_email" method="POST">
             <label for="fname"></label><br>
-            <input type="text" id="codigo" name="fname" placeholder="Inserir Código"><br>
-            <button type="submit" class="botaoAvancar">avançar</button>
+            <input type="text" id="emailInput" name="fname" placeholder="Insira aqui o email cadastrado"><br>
+            <button type="button" class="botaoAvancar" onclick="validateEmail()">avançar</button>
         </form>
     </section>
+    
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+
+        function validateEmail() {
+
+            console.log("Validating input email...");
+            var emailInput = document.getElementById("emailInput");
+            var email = emailInput.value;
+
+            if (!email) {
+                Swal.fire({
+                    title: "Email não fornecido!",
+                    text: "Por favor, digite o email para recuperação de conta.",
+                    icon: "error",
+                    customClass: {
+                        container: "custom-swal",
+                    },
+                    buttonsStyling: true,
+                    confirmButtonClass: "swal-button",
+                });
+                return;
+            }
+
+            // Make a POST request to the server with email data
+            fetch("/verify_email", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ Email: email }),
+            })
+                .then((response) => response.json())
+                .then((data) => {
+                    if (!data.emailExists) {
+                        Swal.fire({
+                        title: "O email não está cadastrado no sistema!",
+                        text: "Por favor, verifique o email digitado e tente novamente.",
+                        icon: "error",
+                        customClass: {
+                            container: "custom-swal",
+                        },
+                        buttonsStyling: true,
+                        confirmButtonClass: "swal-button",
+                        });
+                    } else {
+                        document.querySelector("form").submit();
+                    }
+                }).catch((error) => {
+                    console.error("Error:", error);
+                    Swal.fire({
+                        title: "Erro!",
+                        text: "Um erro ocorreu ao verificar as credenciais.",
+                        icon: "error",
+                        customClass: {
+                            container: "custom-swal",
+                        },
+                        buttonsStyling: true,
+                        confirmButtonClass: "swal-button",
+                    });
+                });
+        }
+    </script>
 
 </body>
 </html>

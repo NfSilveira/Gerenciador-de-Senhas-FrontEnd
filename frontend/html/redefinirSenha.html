@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/redefinirSenha.css') }}">
+    <link rel="icon" href="{{ url_for('static', filename='Imagens/favicon.ico') }}">
+    <script src="{{ url_for('static', filename='js/redirections.js') }}"></script>
+    <title>Recuperação de Conta</title>
+    <style>
+        .custom-swal .swal-button {
+          background-color: #000; /* Set your desired button color */
+          color: #fff; /* Set the text color for the button */
+        }
+    </style>
+</head>
+<body>
+    <section>
+        <button id="botaosair" onclick="goToMainPage()"> 
+            Sair
+        </button>
+    </section>
+    <section class="recuperacaoConta">
+        <p>Redefinir Senha</p>
+    </section>
+
+    <section class="formularioRedefinicao">
+        <p>Digite aqui a nova senha para o email <span id="emailPlaceholder">{{ email }}:</span></p>
+        <form action="/reset_password" method="POST">
+            <label for="fname"></label><br>
+            <input type="text" id="passwordInput" name="fname" placeholder="Digite uma senha forte"><br>
+            <input type="text" id="passwordCheckInput" name="fname" placeholder="Confirme a senha digitada"><br>
+            <button type="button" class="botaoAvancar" onclick="validatePassword()">avançar</button>
+        </form>
+    </section>
+    
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+
+        function validatePassword() {
+
+            var email = getEmailFromURL();
+
+            if (!email) {
+                Swal.fire({
+                    title: "O email não pode ser vazio!",
+                    text: "Por favor, insira um link válido para redefinição de senha.",
+                    icon: "warning",
+                    customClass: {
+                        container: "custom-swal",
+                    },
+                    buttonsStyling: true,
+                    confirmButtonClass: "swal-button",
+                }).then(() => {
+                    // Redirect the user to the main page
+                    goToMainPage();
+                });
+
+                return; // Stop further processing
+            }
+
+            console.log("Validating input password...");
+            var passwordInput = document.getElementById("passwordInput");
+            var password = passwordInput.value;
+
+            var passwordCheckInput = document.getElementById("passwordCheckInput");
+            var passwordCheck = passwordCheckInput.value;
+
+            if (!password || !passwordCheck) {
+                Swal.fire({
+                    title: "Campos Vazios!",
+                    text: "Por favor, digite a nova senha e preencha o campo de confirmação de senha para redefinição.",
+                    icon: "error",
+                    customClass: {
+                        container: "custom-swal",
+                    },
+                    buttonsStyling: true,
+                    confirmButtonClass: "swal-button",
+                });
+                return;
+            }
+
+            if (password != passwordCheck) {
+                Swal.fire({
+                    title: "Os campos não batem!",
+                    text: "Por favor, verifique se os valores digitados nos dois campos são iguais.",
+                    icon: "error",
+                    customClass: {
+                        container: "custom-swal",
+                    },
+                    buttonsStyling: true,
+                    confirmButtonClass: "swal-button",
+                });
+                return;
+            } else {
+                // Perform the password validation
+                var pattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^A-Za-z0-9])(?=.{8,})/;
+                var isStrong = pattern.test(password);
+
+                if (!isStrong) {
+                    Swal.fire({
+                        title: "A senha digitada não é forte o suficiente!",
+                        text: "Atente-se às restrições: A senha deve ter 8 ou mais caracteres, pelo menos uma letra maiúscula, uma minúscula, um número e um caractere especial!",
+                        icon: "warning",
+                        customClass: {
+                            container: "custom-swal",
+                        },
+                        buttonsStyling: true,
+                        confirmButtonClass: "swal-button",
+                    });
+                } else {
+                    Swal.fire({
+                        title: "Senha atualizada com sucesso!",
+                        icon: "success",
+                        customClass: {
+                            container: "custom-swal",
+                        },
+                        showConfirmButton: false,
+                        timer: 1500,
+                    });
+                    document.querySelector("form").submit();
+                }
+            }
+        }
+
+        function checkEmailAndRedirect() {
+
+            var urlParams = new URLSearchParams(window.location.search);
+            var email = urlParams.get('email');
+
+            if (!email) {
+                Swal.fire({
+                    title: "O email não pode ser vazio!",
+                    text: "Por favor, insira um link válido para redefinição de senha.",
+                    icon: "warning",
+                    customClass: {
+                        container: "custom-swal",
+                    },
+                    buttonsStyling: true,
+                    confirmButtonClass: "swal-button",
+                }).then(() => {
+                    // Redirect the user to the main page
+                    goToMainPage();
+                });
+            }
+        }
+
+        function getEmailFromURL() {
+            var urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get("email");
+        }
+
+        // Call the function when the page loads
+        window.onload = checkEmailAndRedirect();
+    </script>
+
+</body>
+</html>

@@ -193,6 +193,49 @@ def verify_incoming_credentials():
     return jsonify(response)
 
 
+@app.route('/verify_email', methods=['POST'])
+def verify_email():
+
+    if request.method == 'POST':
+
+        email = request.json.get('Email')
+
+        email_exists = backend_functions.check_for_existing_credentials(email)
+
+        response = {
+            'emailExists': email_exists
+        }
+
+        return jsonify(response)
+    
+
+@app.route('/reset_password', methods=['GET', 'POST'])
+def reset_password():
+
+    if request.method == 'POST':
+        
+        # Render the password reset form
+        email = request.args.get('email')
+
+        if request.form.get('Password') != '' and email != '':
+
+            # Hash the password
+            hashed_password = backend_functions.hash_password(request.form.get('Password'))
+
+            backend_functions.update_login_credentials_password(email, hashed_password)
+    
+    else:
+
+        # Render the password reset form
+        email = request.args.get('email')
+
+        if email == '' or email is None:
+        
+            return render_template('redefinirSenha.html', email='', error_message='O campo email é necessário!')
+
+        return render_template('redefinirSenha.html', email=email)
+
+
 @app.route('/logout')
 def logout():
 
