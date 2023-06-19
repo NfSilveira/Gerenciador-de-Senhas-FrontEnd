@@ -25,7 +25,8 @@
     </section>
 
     <section class="formularioRedefinicao">
-        <p>Digite aqui a nova senha para o email <span id="emailPlaceholder">:</span></p>
+        <p>Olá, usuário! Está redefinindo sua senha? Digite no formulário a sua nova senha!</p>
+        <span id="emailPlaceholder"></span>
         <form action="/reset_password" method="POST">
             <label for="passwordInput"></label><br>
             <input type="hidden" id="hiddenEmail" name="email" value="{{ email }}">
