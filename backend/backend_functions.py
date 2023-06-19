@@ -223,11 +223,7 @@ def update_login_credentials_password(email, new_password):
 
         encoded_email = cipher.decrypt(base64.b64decode(email)).decode()
 
-        cur.execute(f"SELECT _user_hash FROM login_credentials WHERE _user_email = '{encoded_email};'")
-
-        user_hash = cur.fetchone()[0]
-
-        cur.execute(f"UPDATE login_credentials SET _user_password = '{new_password}' WHERE _user_email = '{encoded_email}' AND _user_hash = '{user_hash}';")
+        cur.execute(f"UPDATE login_credentials SET _user_password = '{new_password}' WHERE _user_email = '{encoded_email}';")
 
         conn.commit()
         cur.close()
