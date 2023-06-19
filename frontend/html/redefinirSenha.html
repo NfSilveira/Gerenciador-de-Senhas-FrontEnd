@@ -25,11 +25,12 @@
     </section>
 
     <section class="formularioRedefinicao">
-        <p>Digite aqui a nova senha para o email <span id="emailPlaceholder">{{ email }}:</span></p>
+        <p>Digite aqui a nova senha para o email <span id="emailPlaceholder">:</span></p>
         <form action="/reset_password" method="POST">
-            <label for="fname"></label><br>
-            <input type="text" id="passwordInput" name="fname" placeholder="Digite uma senha forte"><br>
-            <input type="text" id="passwordCheckInput" name="fname" placeholder="Confirme a senha digitada"><br>
+            <label for="passwordInput"></label><br>
+            <input type="hidden" id="hiddenEmail" name="email" value="{{ email }}">
+            <input type="password" id="passwordInput" name="newPassword" placeholder="Digite uma senha forte"><br>
+            <input type="password" id="passwordCheckInput" name="passwordCheck" placeholder="Confirme a senha digitada"><br>
             <button type="button" class="botaoAvancar" onclick="validatePassword()">avançar</button>
         </form>
     </section>
@@ -39,7 +40,8 @@
 
         function validatePassword() {
 
-            var email = getEmailFromURL();
+            var hiddenEmail= document.getElementById('hiddenEmail');
+            var email = atob(hiddenEmail.value);
 
             if (!email) {
                 Swal.fire({
@@ -147,10 +149,36 @@
 
         function getEmailFromURL() {
             var urlParams = new URLSearchParams(window.location.search);
-            return urlParams.get("email");
+
+            var encodedEmail = urlParams.get('email');
+
+            var email = decodeURIComponent(atob(encodedEmail));
+            return email;
         }
 
-        // Call the function when the page loads
+        function updateEmailPlaceholder() {
+            var hiddenEmail= document.getElementById('hiddenEmail');
+            var email = atob(hiddenEmail.value);
+
+            emailPlaceholder = document.getElementById('emailPlaceholder')
+
+            // Clear the existing content of the emailPlaceholder element
+            emailPlaceholder.innerHTML = '';
+
+            // Create a text node with the decoded email
+            var emailTextNode = document.createTextNode(email);
+
+            // Append the text node to the emailPlaceholder element
+            emailPlaceholder.appendChild(emailTextNode);
+            console.log('Placeholder Updated!')
+        }
+
+        // Call these functions when the page loads
+        window.onload = function() {
+            console.log('Calling updateEmailPlaceholder()');
+            updateEmailPlaceholder();
+        };
+
         window.onload = checkEmailAndRedirect();
     </script>
 

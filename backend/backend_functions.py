@@ -1,6 +1,9 @@
 import bcrypt
 import psycopg2
 import base64
+import smtplib
+from urllib.parse import urlencode, quote_plus
+from email.mime.text import MIMEText
 from cryptography.fernet import Fernet
 
 encryption_key = b'UfGTypNgJzQ6ooSFkLVRpkbv0nLrqLwY'
@@ -218,8 +221,13 @@ def update_login_credentials_password(email, new_password):
 
         cur = conn.cursor()
 
+        encoded_email = cipher.decrypt(base64.b64decode(email)).decode()
 
-        cur.execute(f"UPDATE login_credentials SET _user_password = '{new_password}' WHERE _user_email = '{email}';")
+        cur.execute(f"SELECT _user_hash FROM login_credentials WHERE _user_email = '{encoded_email};'")
+
+        user_hash = cur.fetchone()[0]
+
+        cur.execute(f"UPDATE login_credentials SET _user_password = '{new_password}' WHERE _user_email = '{encoded_email}' AND _user_hash = '{user_hash}';")
 
         conn.commit()
         cur.close()
@@ -228,3 +236,41 @@ def update_login_credentials_password(email, new_password):
     except (Exception, psycopg2.DatabaseError) as e:
 
         print(str(e))
+
+
+def create_reset_password_link(email):
+
+    # base_url = 'http://localhost:5000'
+    base_url = 'http://passwizard.com.br'
+
+    encoded_email = base64.b64encode(cipher.encrypt(email.encode())).decode()
+    reset_password_url = f'{base_url}/reset_password?email={encoded_email}'
+    return reset_password_url
+
+
+def send_recovery_email(email):
+
+    reset_password_link = create_reset_password_link(email)
+
+    smtp_server = 'smtp.gmail.com'
+    smtp_port = 587
+    username = 'passwizard.merlin@gmail.com'
+    password = 'fdfymzwgjrotxsvr'
+
+    from_email = f'PassWizard Messenger - Merlin {username}'
+
+
+    message = f'Olá, quem vos fala é Merlin, o mago mensageiro!\n\nClique no link abaixo para redefinir sua senha:\n{reset_password_link}'
+
+
+    msg = MIMEText(message)
+    msg['Subject'] = 'Redefinição de Senha - PassWizard'
+    msg['From'] = from_email
+    msg['To'] = email
+
+    with smtplib.SMTP(smtp_server, smtp_port) as server:
+        
+        server.starttls()
+        server.login(username, password)
+        server.sendmail(username, [msg['To']], msg.as_string())
+        print('Email de redefinição de senha enviado com sucesso!')

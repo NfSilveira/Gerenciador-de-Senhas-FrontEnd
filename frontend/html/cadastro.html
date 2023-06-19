@@ -111,6 +111,20 @@
                 return;
             }
 
+            if (cleanedPhoneNumber.length > 11) {
+                Swal.fire({
+                    title: "Número de telefone inválido!",
+                    text: "O número de telefone deve conter no máximo 11 dígitos, sem contar possíveis caracteres de parênteses/hífen/espaços em branco.",
+                    icon: "error",
+                    customClass: {
+                        container: "custom-swal",
+                    },
+                    buttonsStyling: true,
+                    confirmButtonClass: "swal-button",
+                });
+                return;
+            }
+
             // Check if the email and phone number are already registered
             fetch("/verify_incoming_credentials", {
                 method: "POST",
@@ -198,6 +212,7 @@
                     });
                 });
         }
+
 
     </script>
 </body>

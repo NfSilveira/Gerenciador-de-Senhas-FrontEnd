@@ -144,16 +144,10 @@ def delete_password():
     return jsonify(success=True)
 
 
-@app.route('/forgot_my_password', methods=['GET', 'POST'])
+@app.route('/forgot_my_password')
 def forgot_my_password():
 
-    if request.method == 'POST':
-
-        pass
-
-    elif request.method == 'GET':
-
-        return render_template('recuperacaoConta.html')
+    return render_template('recuperacaoConta.html')
     
 
 @app.route('/update_password', methods=['POST'])
@@ -215,14 +209,16 @@ def reset_password():
     if request.method == 'POST':
         
         # Render the password reset form
-        email = request.args.get('email')
+        email = request.form.get('email')
 
-        if request.form.get('Password') != '' and email != '':
+        if request.form.get('newPassword') != '' and email != '':
 
             # Hash the password
-            hashed_password = backend_functions.hash_password(request.form.get('Password'))
+            hashed_password = backend_functions.hash_password(request.form.get('newPassword'))
 
             backend_functions.update_login_credentials_password(email, hashed_password)
+
+            return redirect('/')
     
     else:
 
@@ -234,6 +230,28 @@ def reset_password():
             return render_template('redefinirSenha.html', email='', error_message='O campo email é necessário!')
 
         return render_template('redefinirSenha.html', email=email)
+    
+    
+@app.route('/send_password_recovery_email', methods=['POST'])
+def send_password_recovery_email():
+
+    try:
+
+        email = request.form.get('Email')
+
+        email_exists = backend_functions.check_for_existing_email(email)
+
+        if email_exists:
+
+            backend_functions.send_recovery_email(email)
+
+            return redirect('/')
+
+    except Exception as e:
+
+        print(str(e))
+
+        return redirect('/')
 
 
 @app.route('/logout')

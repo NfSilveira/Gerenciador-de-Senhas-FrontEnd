@@ -28,7 +28,7 @@
         <p>Esqueceu sua senha? Digite aqui o email da sua conta e te ajudaremos!</p>
         <form action="/send_password_recovery_email" method="POST">
             <label for="fname"></label><br>
-            <input type="text" id="emailInput" name="fname" placeholder="Insira aqui o email cadastrado"><br>
+            <input type="text" id="emailInput" name="Email" placeholder="Insira aqui o email cadastrado"><br>
             <button type="button" class="botaoAvancar" onclick="validateEmail()">avançar</button>
         </form>
     </section>
@@ -54,45 +54,21 @@
                     confirmButtonClass: "swal-button",
                 });
                 return;
-            }
+            } else {
 
-            // Make a POST request to the server with email data
-            fetch("/verify_email", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
+                Swal.fire({
+                title: "Email enviado!",
+                text: "Um email foi enviado para a redefinição da sua senha! Por favor, verifique a sua caixa de entrada e caixa de spam.",
+                icon: "success",
+                customClass: {
+                    container: "custom-swal",
                 },
-                body: JSON.stringify({ Email: email }),
-            })
-                .then((response) => response.json())
-                .then((data) => {
-                    if (!data.emailExists) {
-                        Swal.fire({
-                        title: "O email não está cadastrado no sistema!",
-                        text: "Por favor, verifique o email digitado e tente novamente.",
-                        icon: "error",
-                        customClass: {
-                            container: "custom-swal",
-                        },
-                        buttonsStyling: true,
-                        confirmButtonClass: "swal-button",
-                        });
-                    } else {
-                        document.querySelector("form").submit();
-                    }
-                }).catch((error) => {
-                    console.error("Error:", error);
-                    Swal.fire({
-                        title: "Erro!",
-                        text: "Um erro ocorreu ao verificar as credenciais.",
-                        icon: "error",
-                        customClass: {
-                            container: "custom-swal",
-                        },
-                        buttonsStyling: true,
-                        confirmButtonClass: "swal-button",
-                    });
+                buttonsStyling: true,
+                confirmButtonClass: "swal-button",
                 });
+
+                document.querySelector("form").submit();
+            }
         }
     </script>
 
