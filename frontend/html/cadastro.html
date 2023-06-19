@@ -80,11 +80,27 @@
 
             var phoneNumberInput = document.getElementById("phoneNumber");
             var phoneNumber = phoneNumberInput.value;
+            var cleanedPhoneNumber = phoneNumber.replace(/[\(\)\-\s]/g, "");
 
             if (!fullName || !email || !phoneNumber) {
                 Swal.fire({
                     title: "Campos vazios!",
                     text: "Por favor, preencha o nome, número de telefone e email.",
+                    icon: "error",
+                    customClass: {
+                        container: "custom-swal",
+                    },
+                    buttonsStyling: true,
+                    confirmButtonClass: "swal-button",
+                });
+                return;
+            }
+
+            var phoneNumberPattern = /^\d+$/;
+            if (!phoneNumberPattern.test(cleanedPhoneNumber)) {
+                Swal.fire({
+                    title: "Número de telefone inválido!",
+                    text: "Por favor, insira um número de telefone válido, contendo apenas dígitos e/ou dígitos com parênteses/hífen.",
                     icon: "error",
                     customClass: {
                         container: "custom-swal",
