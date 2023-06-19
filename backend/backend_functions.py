@@ -141,3 +141,50 @@ def delete_password(user_hash, origin_url, origin_name, origin_password, passwor
     conn.commit()
     cur.close()
     conn.close()
+
+
+def update_password(user_hash, origin_url, origin_name, origin_password, password_id):
+
+    password_id = int(password_id)
+
+    encoded_password = base64.b64encode(cipher.encrypt(origin_password.encode())).decode()
+
+    conn = connect()
+    cur = conn.cursor()
+    cur.execute(f"UPDATE stored_passwords SET _origin = '{origin_url}', _origin_username = '{origin_name}', _origin_password = '{encoded_password}' WHERE _user_hash = '{user_hash}' AND _password_id = {password_id};")
+    conn.commit()
+    cur.close()
+    conn.close()
+
+
+def check_for_existing_credentials(phone_number, email_address):
+
+    email_exists = False
+    phone_number_exists = False
+    both_exists = False
+
+    conn = connect()
+    cur = conn.cursor()
+
+    cur.execute(f"SELECT _user_hash FROM login_credentials WHERE _user_email = '{email_address}';")
+    email_checking_query_results = cur.fetchone()
+
+    if email_checking_query_results is not None:
+
+        email_exists = True
+
+    cur.execute(f"SELECT _user_hash FROM login_credentials WHERE _phone_number = '{phone_number}';")
+    phone_number_checking_query_results = cur.fetchone()
+
+    if phone_number_checking_query_results is not None:
+
+        phone_number_exists = True
+
+    if email_exists and phone_number_exists:
+
+        both_exists = True
+
+    cur.close()
+    conn.close()
+
+    return email_exists, phone_number_exists, both_exists

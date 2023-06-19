@@ -62,27 +62,28 @@ def login():
 
     if request.method == 'POST':
 
-        email = request.form.get('Email')
+        email = request.json.get('Email')
+        password = request.json.get('Password')
 
-        if request.form.get('Password') != '' and email != '':
+        if email and password:
 
-            match, username, user_hash = backend_functions.check_login_credentials(email, request.form.get('Password'))
+            match, username, user_hash = backend_functions.check_login_credentials(email, password)
 
             if match:
 
                 session['username'] = username
                 session['user_hash'] = user_hash
                 passwords = backend_functions.fetch_passwords(user_hash)
-
-                # Store the passwords in a session variable
                 session["passwords"] = passwords
 
-                # Redirect to the route that displays the passwords
-                return redirect(url_for("dashboard"))
-            
+                return jsonify(success=True)
             else:
-                
-                return redirect('/')
+
+                return jsonify(success=False, message="Email ou senha inválidos")
+            
+        else:
+
+            return jsonify(success=False, message="Preencha todos os campos!")
 
     elif request.method == 'GET':
 
@@ -153,6 +154,43 @@ def forgot_my_password():
     elif request.method == 'GET':
 
         return render_template('recuperacaoConta.html')
+    
+
+@app.route('/update_password', methods=['POST'])
+def update_password():
+
+    user_hash = session.get('user_hash')
+    
+    origin_url = request.json.get('originURL')
+    origin_name = request.json.get('originName')
+    origin_password = request.json.get('originPassword')
+    password_id = request.json.get('passwordID')
+
+    backend_functions.update_password(user_hash, origin_url, origin_name, origin_password, password_id)
+
+    passwords = backend_functions.fetch_passwords(user_hash)
+    session['passwords'] = passwords
+
+    return jsonify(success=True)
+
+
+@app.route('/verify_incoming_credentials', methods=['POST'])
+def verify_incoming_credentials():
+
+    email = request.json.get('email')
+    phone_number = request.json.get('phoneNumber')
+
+    formatted_phone_number = re.sub(r'[\(\)\-\s]', '', phone_number)
+
+    email_exists, phone_number_exists, both_exists = backend_functions.check_for_existing_credentials(formatted_phone_number, email)
+
+    response = {
+        'emailExists': email_exists,
+        'phoneNumberExists': phone_number_exists,
+        'bothExists': both_exists
+    }
+
+    return jsonify(response)
 
 
 @app.route('/logout')

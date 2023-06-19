@@ -7,6 +7,12 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/login.css') }}">
     <script src="{{ url_for('static', filename='js/redirections.js') }}"></script>
     <title>Página de Login</title>
+    <style>
+        .custom-swal .swal-button {
+          background-color: #000; /* Set your desired button color */
+          color: #fff; /* Set the text color for the button */
+        }
+    </style>
 </head>
 <body>
     <div class="flex-container">
@@ -23,25 +29,25 @@
             <form action="/login" method="POST">
                 <div class="row">
                     <div class="col-5">
-                        <label for="fname"></label>
+                        <label for="emailInput"></label>
                     </div>
                     <div class="col-5">
                         <label for="Email"></label>
-                        <input type="text" id="fname" placeholder="Email" name="Email">
+                        <input type="text" id="emailInput" placeholder="Email" name="Email">
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-5">
-                        <label for="fname"></label>
+                        <label for="passwordInput"></label>
                     </div>
                     <div class="col-5">
                         <label for="Senha"></label>
-                        <input type="password" id="fname" placeholder="Senha" name="Password">
+                        <input type="password" id="passwordInput" placeholder="Senha" name="Password">
                     </div>
                 </div>
     
                 <div class="row">
-                    <button type="submit" class="botaoLogin">login</button>
+                    <button type="button" class="botaoLogin" onclick="validateLoginForm()">login</button>
                 </div>
             </div>
         </form> 
@@ -54,5 +60,81 @@
             </div>
         </div>
     </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+
+        function validateLoginForm() {
+
+            console.log("Validating login form...");
+            var emailInput = document.getElementById("emailInput");
+            var passwordInput = document.getElementById("passwordInput");
+            var email = emailInput.value;
+            var password = passwordInput.value;
+
+            // Perform an AJAX request to your server to validate the credentials
+            // Here, you can use an HTTP request library like Axios or fetch API
+
+            // Make a POST request to the server with email and password data
+            fetch("/login", {
+                method: "POST",
+                headers: {
+                "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ Email: email, Password: password }),
+            })
+                .then(function (response) {
+                // Check the response status
+                if (response.ok) {
+                    return response.json();
+                } else {
+                    // Login failed
+                    Swal.fire({
+                    title: "Email ou Senha Inválidos!",
+                    text: "Por favor, verifique as credenciais inseridas e tente novamente.",
+                    icon: "error",
+                    customClass: {
+                        container: "custom-swal",
+                    },
+                    buttonsStyling: true,
+                    confirmButtonClass: "swal-button",
+                    });
+                }
+                })
+                .then(function (data) {
+                // Check the response data from the server
+                if (data.success) {
+                    // Login successful
+                    Swal.fire({
+                    title: "Login Bem-sucedido!",
+                    icon: "success",
+                    customClass: {
+                        container: "custom-swal",
+                    },
+                    showConfirmButton: false,
+                    timer: 1500,
+                    }).then(() => {
+                        goToPasswordsPage();
+                    });
+                } else {
+                    // Login failed
+                    Swal.fire({
+                    title: "Email ou Senha Inválidos!",
+                    text: "Por favor, verifique as credenciais inseridas e tente novamente.",
+                    icon: "error",
+                    customClass: {
+                        container: "custom-swal",
+                    },
+                    buttonsStyling: true,
+                    confirmButtonClass: "swal-button",
+                    });
+                }
+                })
+                .catch(function (error) {
+                // Handle any error occurred during the request
+                console.error(error);
+                });
+        }
+    </script>
 </body>
 </html>

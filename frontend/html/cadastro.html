@@ -63,44 +63,125 @@
     </form>
   </div>
 
-  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
 
         function validateForm() {
             console.log("Validating form...");
+            var fullNameInput = document.getElementById("fname");
+            var fullName = fullNameInput.value;
+
             var passwordInput = document.getElementById("passwordInput");
             var password = passwordInput.value;
 
-            // var pattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/;
-            var pattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^A-Za-z0-9])(?=.{8,})/;
-            // (?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^A-Za-z0-9])(?=.{8,})
-            var isStrong = pattern.test(password);
+            var emailInput = document.getElementById("emailField");
+            var email = emailInput.value;
 
-            if (!isStrong) {
+            var phoneNumberInput = document.getElementById("phoneNumber");
+            var phoneNumber = phoneNumberInput.value;
 
+            if (!fullName || !email || !phoneNumber) {
                 Swal.fire({
-                        title: 'A senha digitada não é forte o suficiente!',
-                        text: 'Atente-se às restrições: A senha deve ter 8 ou mais caracteres, pelo menos uma letra maiúscula, uma minúscula, um número e um caractere especial!',
-                        icon: 'warning',
+                    title: "Campos vazios!",
+                    text: "Por favor, preencha o nome, número de telefone e email.",
+                    icon: "error",
+                    customClass: {
+                        container: "custom-swal",
+                    },
+                    buttonsStyling: true,
+                    confirmButtonClass: "swal-button",
+                });
+                return;
+            }
+
+            // Check if the email and phone number are already registered
+            fetch("/verify_incoming_credentials", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ email: email, phoneNumber: phoneNumber }),
+            })
+                .then((response) => response.json())
+                .then((data) => {
+                    if (data.bothExists) {
+                        Swal.fire({
+                            title: "Email e telefone já registrados!",
+                            text: "O email e telefone informados já estão cadastrados. Por favor, utilize um email e telefone diferentes.",
+                            icon: "error",
+                            customClass: {
+                                container: "custom-swal",
+                            },
+                            buttonsStyling: true,
+                            confirmButtonClass: "swal-button",
+                        });
+                    } else if (data.emailExists) {
+                        Swal.fire({
+                            title: "Email já registrado!",
+                            text: "O email informado já está cadastrado. Por favor, utilize um email diferente.",
+                            icon: "error",
+                            customClass: {
+                                container: "custom-swal",
+                            },
+                            buttonsStyling: true,
+                            confirmButtonClass: "swal-button",
+                        });
+                    } else if (data.phoneNumberExists) {
+                        Swal.fire({
+                            title: "Telefone já registrado!",
+                            text: "O número de telefone informado já está cadastrado. Por favor, utilize um número diferente.",
+                            icon: "error",
+                            customClass: {
+                                container: "custom-swal",
+                            },
+                            buttonsStyling: true,
+                            confirmButtonClass: "swal-button",
+                        });
+                    } else {
+                        // Perform the password validation
+                        var pattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^A-Za-z0-9])(?=.{8,})/;
+                        var isStrong = pattern.test(password);
+
+                        if (!isStrong) {
+                            Swal.fire({
+                                title: "A senha digitada não é forte o suficiente!",
+                                text: "Atente-se às restrições: A senha deve ter 8 ou mais caracteres, pelo menos uma letra maiúscula, uma minúscula, um número e um caractere especial!",
+                                icon: "warning",
+                                customClass: {
+                                    container: "custom-swal",
+                                },
+                                buttonsStyling: true,
+                                confirmButtonClass: "swal-button",
+                            });
+                        } else {
+                            Swal.fire({
+                                title: "Credenciais cadastradas com sucesso!",
+                                icon: "success",
+                                customClass: {
+                                    container: "custom-swal",
+                                },
+                                showConfirmButton: false,
+                                timer: 1500,
+                            });
+                            document.querySelector("form").submit();
+                        }
+                    }
+                })
+                .catch((error) => {
+                    console.error("Error:", error);
+                    Swal.fire({
+                        title: "Erro!",
+                        text: "Um erro ocorreu ao verificar as credenciais.",
+                        icon: "error",
                         customClass: {
-                        container: 'custom-swal'
+                            container: "custom-swal",
                         },
                         buttonsStyling: true,
-                        confirmButtonClass: 'swal-button'
+                        confirmButtonClass: "swal-button",
+                    });
                 });
-            } else {
-                Swal.fire({
-                        title: 'Credenciais cadastradas com sucesso!',
-                        icon: 'success',
-                        customClass: {
-                        container: 'custom-swal'
-                        },
-                        showConfirmButton: false,
-                        timer: 1500
-                });
-                document.querySelector('form').submit();
-            }
         }
+
     </script>
 </body>
 </html>

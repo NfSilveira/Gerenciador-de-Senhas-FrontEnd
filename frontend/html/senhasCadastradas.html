@@ -9,6 +9,12 @@
     <link rel="stylesheet" href="https://fontawesome.com/icons/eye-slash?f=classic&s=light"> 
     <script src="{{ url_for('static', filename='js/redirections.js') }}"></script>
     <title>Senhas Cadastradas</title>
+    <style>
+        .custom-swal .swal-button {
+          background-color: #000; /* Set your desired button color */
+          color: #fff; /* Set the text color for the button */
+        }
+    </style>
 </head>
 
 <body>
@@ -40,7 +46,7 @@
                     <input type="password" class="password" id="password" value="{{ password[2] }}" name="origin_password">
                     <input type="hidden" name="password_id" value="{{ password[3] }}">
                     <a href="#" onclick="confirmDelete('{{ password[0] }}', '{{ password[1] }}', '{{ password[2] }}', '{{ password[3] }}')"><img width="40" height="40" src="https://img.icons8.com/windows/40/delete.png" alt="delete"/></a>
-                    <img width="35" height="35" src="https://img.icons8.com/external-tulpahn-detailed-outline-tulpahn/35/external-pencil-stationery-tulpahn-detailed-outline-tulpahn.png" alt="external-pencil-stationery-tulpahn-detailed-outline-tulpahn"/>
+                    <a href="#" onclick="showUpdateForm('{{ password[0] }}', '{{ password[1] }}', '{{ password[2] }}', '{{ password[3] }}')"><img width="35" height="35" src="https://img.icons8.com/external-tulpahn-detailed-outline-tulpahn/35/external-pencil-stationery-tulpahn-detailed-outline-tulpahn.png" alt="external-pencil-stationery-tulpahn-detailed-outline-tulpahn"/></a>
                 </form>
                 {% endfor %}
         </div>
@@ -68,50 +74,131 @@
         }
 
         function confirmDelete(origin_url, origin_name, password, password_id) {
-        Swal.fire({
-            title: 'Você quer mesmo excluir a senha?',
-            text: "Ela será permanentemente apagada!",
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Sim, exclua!',
-            cancelButtonText: 'Não, não exclua!'
-        }).then((result) => {
-            if (result.isConfirmed) {
-                fetch('/delete_password', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({ origin_url: origin_url, origin_name: origin_name,  origin_password: password, password_id: password_id })
-                })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.success) {
+            Swal.fire({
+                title: 'Você quer mesmo excluir a senha?',
+                text: "Ela será permanentemente apagada!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Sim, exclua!',
+                cancelButtonText: 'Não, não exclua!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    fetch('/delete_password', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({ origin_url: origin_url, origin_name: origin_name,  origin_password: password, password_id: password_id })
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            Swal.fire({
+                                title: 'Excluída!',
+                                text: 'A senha foi excluída.',
+                                icon: 'success',
+                                customClass: {
+                                    container: 'custom-swal'
+                                },
+                                buttonsStyling: true,
+                                confirmButtonClass: 'swal-button'
+                            }).then(() => {
+                                goToPasswordsPage();
+                            });
+                        } else {
+                            Swal.fire('Erro!', 'A senha não pôde ser deletada.', 'error');
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        Swal.fire('Erro!', 'Um erro ocorreu ao tentar excluir a senha.', 'error');
+                    });
+                }
+            });
+        }
+
+        function showUpdateForm(originURL, originName, originPassword, passwordID) {
+            Swal.fire({
+                title: 'Editar Senha',
+                html: `
+                    <input type="text" id="updateOriginURL" class="swal2-input" placeholder="Nova URL do Site/Novo Nome do Aplicativo" value="${originURL}">
+                    <input type="text" id="updateOriginName" class="swal2-input" placeholder="Novo Nome do Login/Usuário" value="${originName}">
+                    <input type="password" id="updateOriginPassword" class="swal2-input" placeholder="Nova Senha" value="${originPassword}">
+                `,
+                showCancelButton: true,
+                customClass: {
+                    container: "custom-swal",
+                },
+                buttonsStyling: true,
+                confirmButtonClass: "swal-button",
+                cancelButtonClass: "swal-button",
+                confirmButtonText: 'Salvar',
+                cancelButtonText: 'Cancelar',
+                focusConfirm: false,
+                preConfirm: () => {
+                    const updatedOriginURL = Swal.getPopup().querySelector('#updateOriginURL').value;
+                    const updatedOriginName = Swal.getPopup().querySelector('#updateOriginName').value;
+                    const updatedOriginPassword = Swal.getPopup().querySelector('#updateOriginPassword').value;
+
+                    if (updatedOriginURL == originURL && updatedOriginName == originName && updatedOriginPassword == originPassword)  {
                         Swal.fire({
-                            title: 'Excluída!',
-                            text: 'A senha foi excluída.',
-                            icon: 'success',
+                            title: 'Não há alterações!',
+                            text: 'Não há alterações com relação às credenciais originais!',
+                            icon: 'error',
                             customClass: {
-                                container: 'custom-swal'
+                                container: "custom-swal",
                             },
                             buttonsStyling: true,
-                            confirmButtonClass: 'swal-button'
-                        }).then(() => {
-                            goToPasswordsPage();
+                            confirmButtonClass: "swal-button"
                         });
-                    } else {
-                        Swal.fire('Erro!', 'A senha não pôde ser deletada.', 'error');
+
+                        return {}
                     }
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                    Swal.fire('Erro!', 'Um erro ocorreu ao tentar excluir a senha.', 'error');
-                });
-            }
-        });
+
+                    else {
+                        return { originURL: updatedOriginURL, originName: updatedOriginName, originPassword: updatedOriginPassword, passwordID: passwordID };
+                    }
+                }
+            }).then((result) => {
+                if (result.isConfirmed && Object.keys(result.value).length > 0) {
+                    // Call the /update_password endpoint using fetch
+                    fetch('/update_password', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(result.value)
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            Swal.fire({
+                                title: 'Sucesso!',
+                                text: 'A senha foi atualizada.',
+                                icon: 'success',
+                                customClass: {
+                                    container: "custom-swal",
+                                },
+                                buttonsStyling: true,
+                                confirmButtonClass: "swal-button"
+                            }).then(() => {
+                                // Reload the passwords or perform any other necessary actions
+                                goToPasswordsPage();
+                            });
+                        } else {
+                            Swal.fire('Erro!', 'A senha não pôde ser atualizada.', 'error');
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        Swal.fire('Erro!', 'Um erro ocorreu ao tentar atualizar a senha.', 'error');
+                    });
+                }
+            });
         }
+
     </script>
 </body>
 </html>
